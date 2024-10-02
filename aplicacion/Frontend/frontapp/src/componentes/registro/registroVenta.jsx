@@ -122,6 +122,8 @@ const RegistroVenta = () => {
 
             const result = await response.json();
             console.log("Respuesta de la API:", result);
+            alert('Coche reservado correctamente');
+            navigate('/');
         } catch (error) {
             console.error("Error enviando datos:", error);
             setError("Error al enviar los datos");
