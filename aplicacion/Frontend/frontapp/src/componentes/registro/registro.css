@@ -1,0 +1,75 @@
+body {
+    background: linear-gradient(to bottom, #2c2c2c, #2b6c8e);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.registro-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 75%;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.registro-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 35%;
+}
+
+.registro-logo {
+    width: 50%; /* Ajusta el tamaño del logo */
+    border-radius: 10px;
+}
+
+.registro-left h2 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-top: 10px;
+}
+
+.registro-right {
+    width: 60%;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="file"] {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-bottom: 1px solid white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 8px;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2rem;
+    background-color: #009ef3;
+    border: none;
+}
+
+button:hover {
+    background-color: white;
+}
+
+label {
+    color: #ffffff;
+}
+
+.text-danger {
+    font-size: 0.9rem;
+}
