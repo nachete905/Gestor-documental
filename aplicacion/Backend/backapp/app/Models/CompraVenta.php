@@ -43,16 +43,6 @@ class CompraVenta extends Model
         return $this->belongsTo(Coche::class, 'coche', 'matricula'); // Asegúrate de que 'matricula' es la clave en el modelo Coche
     }
 
-    // Relación con el modelo `Usuario` para el comprador
-    public function comprador()
-    {
-        return $this->belongsTo(Usuario::class, 'comprador', 'id_usuario');
-    }
 
-    // Relación con el modelo `Usuario` para el vendedor
-    public function vendedor()
-    {
-        return $this->belongsTo(Usuario::class, 'vendedor', 'id_usuario');
-    }
 
 }

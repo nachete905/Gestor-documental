@@ -6,7 +6,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import toyota from '../fotos/toyota.jpg';
 import dacia from '../fotos/dacia.jpg';
 import volkswagen from '../fotos/volkswagen.jpg';
-import logo from '../logo/Logo.webp'; 
+import logo from '../logo/Logo.webp';
+import { Link } from "react-router-dom";
 import './home.css';
 
 function handleTokenExpiry(navigate) {
@@ -80,6 +81,24 @@ export default function Home({ isAuthenticated, onLogout }) {
         navigate('/registroEmpresaUser');
     };
 
+    const handleAdminRegisterClick = () => {
+        navigate('/registroDeAdmin');
+    };
+    const handleCocheRegisterClick = () => {
+        navigate('/formCoche');
+    };
+
+    const handleTiendaRegisterClick = () => {
+        navigate('/tiendaCoches');
+    };
+    const handleTablaCochesClick = ()  => {
+        navigate('/coches');
+    };
+    const hanleTablaPropietarios = () => {
+      navigate('/propietarios');
+    };
+
+
     const handleLogoutClick = () => {
         fetch('http://localhost:8000/api/logout', {
             method: 'POST',
@@ -112,20 +131,6 @@ export default function Home({ isAuthenticated, onLogout }) {
         });
     };
 
-    const handleAdminRegisterClick = () => {
-        navigate('/registroDeAdmin');
-    };
-    const handleCocheRegisterClick = () => {
-        navigate('/formCoche');
-    };
-
-    const handleTiendaRegisterClick = () => {
-        navigate('/tiendaCoches');
-    };
-    const handleTablaCochesClick = ()  => {
-        navigate('/coches')
-    };
-
     return (
         <div className="home">
             <div className="cabecera  w-100 d-flex justify-content-between align-items-center p-2 position-relative">
@@ -142,7 +147,7 @@ export default function Home({ isAuthenticated, onLogout }) {
                             <li><a className="dropdown-item active" href="#">Sobre nosotros</a></li>
                             <li><a className="dropdown-item" href="#a-que-nos-dedicamos">A qué nos dedicamos</a></li>
                             <li><a className="dropdown-item" href="#">Cómo funcionamos</a></li>
-                            <li><a className="dropdown-item" href="#">Ver coches a la venta</a></li>
+                            <li><a className="dropdown-item" href="#coches-a-la-venta">Ver coches a la venta</a></li>
                         </ul>
                     </div>
                     <div className="dropdown me-2">
@@ -155,10 +160,11 @@ export default function Home({ isAuthenticated, onLogout }) {
                             {/* Condicional para mostrar la opción solo si el userType es 1 */}
                             {userType === 1 && (
                                 <ul>
-                                    <li><a className="dropdown-item" href="#">Ver información de los coches</a></li>
-                                    <li><a className="dropdown-item" href="#" onClick={handleTablaCochesClick}>Ver historial de un coche</a></li>    
+                                    <li><a className="dropdown-item" href="" onClick={handleTablaCochesClick}>Ver información de los coches</a></li>
+                                    <li><a className="dropdown-item" href="" onClick={hanleTablaPropietarios}>Ver información de los propietarios</a></li>
+                                    <li><a className="dropdown-item" href="#">Ver historial de un coche</a></li>
                                 </ul>
-                               
+
                             )}
                         </ul>
                     </div>
@@ -171,7 +177,7 @@ export default function Home({ isAuthenticated, onLogout }) {
                                         <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
                                       </svg>
                                     ) : (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
+                                        <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
                                             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
                                         </svg>
                                     )}
@@ -247,45 +253,48 @@ export default function Home({ isAuthenticated, onLogout }) {
             ) : "pepe"}
 
             {/* Acerca de Section */}
-            <div className="acerca-de-section mt-5 p-5 bg-light border border-info rounded w-75 mx-auto">
+            <div className="acerca-de-section mt-5 p-5 bg-light border border-info rounded w-75 mx-auto" id="a-que-nos-dedicamos">
                 <h3 className="text-center text-info">Acerca de nosotros</h3>
                 <p className="text-center text-dark">
-                    Somos una empresa dedicada a la venta de coches de ocasión, comprometidos con ofrecer la mejor calidad 
-                    y servicio a nuestros clientes. Llevamos años en el mercado, ayudando a miles de personas a encontrar 
-                    el coche perfecto para sus necesidades.
+                    <p className="text-center text-dark">
+                        Soy un gestor especializado en brindar servicios de gestión integral a empresas. Mi objetivo es
+                        facilitar el crecimiento y la eficiencia operativa de tu negocio, ofreciendo un acompañamiento
+                        personalizado que se adapte a tus necesidades específicas.
+                    </p>
+                    <p className="text-center text-dark">
+                        Con años de experiencia en la gestión empresarial, ofrezco soluciones efectivas que abarcan
+                        desde la administración financiera hasta la optimización de procesos. Mi enfoque se centra en
+                        entender las particularidades de cada empresa y proponer estrategias que promuevan su desarrollo
+                        sostenible.
+                    </p>
+                    <p className="text-center text-dark">
+                        Trabajando juntos, podrás contar con un apoyo profesional que no solo se encargará de la parte
+                        operativa, sino que también te ayudará a tomar decisiones informadas para el futuro de tu
+                        empresa. Estoy aquí para ser el socio estratégico que necesitas para llevar tu negocio al
+                        siguiente nivel.
+                    </p>
                 </p>
             </div>
             {/*Coches a la venta*/}
-            <div className="seccion-coches mt-5 p-5 bg-light border border-info rounded w-75 mx-auto d-flex flex-column align-items-center">
+            <div
+                className="seccion-coches mt-5 p-5 bg-light border border-info rounded w-75 mx-auto d-flex flex-column align-items-center" id="coches-a-la-venta">
                 <h3 className="text-center text-info">Coches a la venta</h3>
                 <p className="text-center text-dark">
-                        Descubre nuestra exclusiva selección de coches a la venta, donde encontrarás vehículos de alta calidad que se ajustan a todos los gustos y 
-                        presupuestos. Ya sea que busques un modelo compacto, un sedán de lujo o un SUV versátil, aquí tenemos la opción perfecta para ti.
-                        Todos nuestros coches están cuidadosamente revisados para garantizar un excelente rendimiento en cada viaje. 
-                        ¡Explora ahora y encuentra el coche de tus sueños!
+                    Aquí se guardarán los coches que registres en la aplicación. Esta sección te permite gestionar y
+                    visualizar todos los vehículos que has añadido a nuestro sistema, para tener una sección dedicada
+                    a tienda online de compra de un coche.
                 </p>
-                <button type="submit" id="boton" className="btn w-100" onClick={handleTiendaRegisterClick}>Llévate tu coche</button>
+                <p className="text-center text-dark">
+                    Cada coche registrado será revisado para garantizar su calidad y disponibilidad, facilitando a los
+                    usuarios encontrar rápidamente lo que buscan. ¡Comienza a añadir tus coches y optimiza tu gestión
+                    ahora!
+                </p>
+                <button type="submit" id="boton" className="btn w-100" onClick={handleTiendaRegisterClick}>Llévate tu
+                    coche
+                </button>
             </div>
 
-            {/* Formulario de consultas */}
-            <div className="consulta-section mt-5 p-5 bg-light border border-info rounded w-75 mx-auto">
-                <h3 className="text-center text-info">Formulario de Consultas</h3>
-                <form className="mt-3">
-                    <div className="mb-3">
-                        <label htmlFor="nombre" className="form-label">Nombre</label>
-                        <input type="text" className="form-control border border-info" id="nombre" placeholder="Ingresa tu nombre" />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Correo Electrónico</label>
-                        <input type="email" className="form-control border border-info" id="email" placeholder="Ingresa tu correo electrónico" />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="consulta" className="form-label">Consulta</label>
-                        <textarea className="form-control border border-info" id="consulta" rows="3" placeholder="Escribe tu consulta"></textarea>
-                    </div>
-                    <button type="submit" id="boton" className="btn btn-info w-100">Enviar</button>
-                </form>
-            </div>
+
         </div>
     );
 }

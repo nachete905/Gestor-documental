@@ -11,6 +11,7 @@ class Propietario extends Model
     public $timestamps = false;
     protected $fillable = [
         'id_propietario',
+        'DNI',
         'nombre',
         'apellido',
         'email',

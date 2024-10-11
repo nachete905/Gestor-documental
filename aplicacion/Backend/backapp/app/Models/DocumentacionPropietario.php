@@ -13,7 +13,6 @@ class DocumentacionPropietario extends Model
         'id_documentacion',
         'nominas',
         'carnet',
-        'DNI',
 
     ];
 

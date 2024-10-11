@@ -9,6 +9,10 @@ import RegistroEmpresaUser from './componentes/registro/registroEmpresaUser.jsx'
 import RegistroDeAdmin from './componentes/registro/registroDeAdmin.jsx';
 import RegistroVenta from './componentes/registro/registroVenta.jsx'
 import Coches from './componentes/tablaCoches/coches.jsx';
+import Documentacion from './componentes/tablaCoches/Documentacion.jsx';
+import TablaPropietarios from './componentes/tablaPropietarios/Propietarios.jsx'
+import DocumentacionPropietario from './componentes/tablaPropietarios/DocumentacionPropietario.jsx';
+
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
 
@@ -34,6 +38,10 @@ function App() {
                     <Route path="/registroEmpresaUser" element={<RegistroEmpresaUser />} />
                     <Route path="/registroVenta" element={<RegistroVenta />} />
                     <Route path="/coches" element={<Coches />} />
+                    <Route path="/Documentacion/:matricula" element={<Documentacion />} />
+                    <Route path="/propietarios" element={<TablaPropietarios />} />
+                    <Route path="/documentacionPropietario/:dni" element={<DocumentacionPropietario />} />
+
                 </Routes>
             </div>
         </Router>

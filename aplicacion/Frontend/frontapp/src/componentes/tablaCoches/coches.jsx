@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import jsPDF from "jspdf";
+import 'jspdf-autotable';
 import "./coches.css";
 
 export default function Coches() {
@@ -80,27 +82,63 @@ export default function Coches() {
         setBusqueda("");
         obtenerCoches();
     };
+    const generarPDF = (coches) => {
+        const doc = new jsPDF();
+        doc.setFontSize(16);
+        doc.text("Lista de Coches", 14, 15);
+
+        let startY = 30;
+
+        coches.forEach(coche => {
+            doc.setFontSize(12);
+            // Añadir la información básica del coche (marca, modelo y matrícula)
+            doc.text(`Coche: ${coche.marca} ${coche.modelo} con matrícula: ${coche.matricula}`, 14, startY);
+            startY += 10; // Incrementar la posición Y para la siguiente línea
+            doc.setFontSize(10);
+            doc.text(`- Combustible: ${coche.tipo_combustible}`, 14, startY);
+            startY += 7;
+            doc.text(`- Transmisión: ${coche.tipo_cambio}`, 14, startY);
+            startY += 7;
+            doc.text(`- Kilometraje: ${coche.kilometraje}`, 14, startY);
+            startY += 7;
+            doc.text(`- Año de Matriculación: ${coche.año_matriculacion?.split('T')[0] || ""}`, 14, startY);
+            startY += 7;
+            doc.text(`- Año Documentación: ${coche.documentacion?.fecha_documentacion || ""}`, 14, startY);
+            startY += 7;
+            doc.text(`- Propietario: ${coche.propietario?.nombre || ""} ${coche.propietario?.apellido || ""}`, 14, startY);
+            startY += 7;
+            doc.text(`- Email Propietario: ${coche.propietario?.email || ""}`, 14, startY);
+            startY += 15; // Espacio extra entre coches
+        });
+
+        // Guardar el PDF
+        doc.save("coches.pdf");
+    };
+
+
+
 
     return (
-        <div className="tabla">
-            <h1>Lista de Coches</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="busqueda"
-                    id="busqueda"
-                    placeholder="Buscar por matrícula"
-                    value={busqueda}
-                    onChange={handleBusqueda}
-                />
-                <button type="submit">Buscar</button>
-            </form>
-            <button onClick={mostrarTodosLosCoches} className="mt-3 rounded">
-                Mostrar Todos
-            </button>
-            {error && <p>{error}</p>} {/* Mostrar mensaje de error si hay */}
-            <table>
-                <thead>
+        <div className="container">
+            <div className="tabla">
+                <h2>Lista de Coches</h2>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        name="busqueda"
+                        id="busqueda"
+                        placeholder="Buscar por matrícula"
+                        value={busqueda}
+                        onChange={handleBusqueda}
+                    />
+                    <button type="submit">Buscar</button>
+                </form>
+                <button onClick={mostrarTodosLosCoches} className="mt-3 rounded">
+                    Mostrar Todos
+                </button>
+                {error && <p>{error}</p>} {/* Mostrar mensaje de error si hay */}
+                <table>
+                    <thead>
                     <tr>
                         <th>Matrícula</th>
                         <th>Marca</th>
@@ -113,18 +151,22 @@ export default function Coches() {
                         <th>Propietario</th>
                         <th>Email Propietario</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     {coches.length > 0 ? (
                         coches.map((coche) => (
                             <tr key={coche.matricula}>
-                                <td>{coche.matricula}</td>
+                                <td>
+                                    <a href={`/documentacion/${coche.matricula}`} style={{textDecoration: 'none'}}>
+                                        {coche.matricula}
+                                    </a>
+                                </td>
                                 <td>{coche.marca}</td>
                                 <td>{coche.modelo}</td>
                                 <td>{coche.tipo_combustible}</td>
                                 <td>{coche.tipo_cambio}</td>
                                 <td>{coche.kilometraje}</td>
-                                <td>{coche.año_matriculacion}</td>
+                                <td>{coche.año_matriculacion.split('T')[0]}</td>
                                 <td>{coche.documentacion?.fecha_documentacion}</td>
                                 <td>{coche.propietario?.nombre} {coche.propietario?.apellido}</td>
                                 <td>{coche.propietario?.email}</td>
@@ -135,8 +177,13 @@ export default function Coches() {
                             <td colSpan="10">No se encontraron coches</td>
                         </tr>
                     )}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+                <button onClick={() => generarPDF(coches)} className="mt-3 rounded">
+                    Generar PDF
+                </button>
+            </div>
         </div>
+
     );
 }

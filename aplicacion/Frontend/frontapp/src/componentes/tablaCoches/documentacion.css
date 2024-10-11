@@ -1,0 +1,53 @@
+/* Documentacion.css */
+
+/* Estilo general para el contenedor principal */
+.tituloDocumentacion {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #f9f9f9;
+}
+
+
+
+.tituloDocumentacion ul {
+    list-style: none;
+    padding: 0;
+}
+
+.tituloDocumentacion ul li {
+    margin-bottom: 10px;
+    font-size: 16px;
+
+}
+
+
+.containerDocumentacion {
+    margin-top: 20px;
+}
+
+.containerDocumentacion h3 {
+    margin-bottom: 15px;
+
+}
+
+
+.containerDocumentacion div {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.containerDocumentacion div:hover {
+    transform: scale(1.02);
+
+}
+
+
+.containerDocumentacion img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px; /* Bordes redondeados */
+}

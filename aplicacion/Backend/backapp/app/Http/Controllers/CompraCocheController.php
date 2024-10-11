@@ -47,6 +47,7 @@ class CompraCocheController extends Controller
                 'apellido' => 'required|string',
                 'email' => 'required|email',
                 'telefono' => 'required|string',
+                'dni' => 'required|string',
                 'permisoCirculacion' => 'required|string',
                 'fichaTecnica' => 'required|string',
                 'fichaVerde' => 'required|string',
@@ -149,6 +150,7 @@ class CompraCocheController extends Controller
                 'email' => $request->email,
                 'telefono' => $request->telefono,
                 'matricula' => $coche->matricula,
+                'DNI' => $request->dni
             ]);
 
             Log::debug("Propietario creado con ID: " . $propietario->id_propietario);

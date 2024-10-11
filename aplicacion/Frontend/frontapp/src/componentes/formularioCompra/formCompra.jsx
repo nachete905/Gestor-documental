@@ -22,6 +22,7 @@ const MultiStepForm = () => {
         apellido: '',
         email: '',
         telefono: '',
+        dni: '',
         matricula: '',
         permisoCirculacion: null,
         fichaTecnica: null,
@@ -185,8 +186,14 @@ const MultiStepForm = () => {
                                     <label htmlFor="telefono" className="form-label">Teléfono:</label>
                                     <input type="text" id="telefono" name="telefono" className="form-control" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} />
                                 </div>
+                                <div className="mb-3">
+                                    <label htmlFor="dni" className="form-label">DNI:</label>
+                                    <input type="text" id="dni" name="telefono" className="form-control" placeholder="Teléfono" value={formData.DNI} onChange={handleChange}/>
+                                </div>
                                 <div className="text-center">
-                                    <button type="button" className="btn btn-primary me-2" onClick={nextStep}>Siguiente</button>
+                                    <button type="button" className="btn btn-primary me-2"
+                                            onClick={nextStep}>Siguiente
+                                    </button>
                                 </div>
                             </form>
                         </div>

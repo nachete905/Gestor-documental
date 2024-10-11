@@ -70,7 +70,8 @@ class Coche extends Model
     {
         return $this->hasMany(Venta::class, 'matricula', 'matricula');
     }
-    public function instalaciones(){
-        return $this->belongsTo(Instalaciones::class. 'id_instalacion', 'id_instalacion');
+    public function instalaciones()
+    {
+        return $this->belongsTo(Instalaciones::class, 'id_instalacion', 'id_instalacion');
     }
 }
