@@ -24,16 +24,18 @@ class AuthCoche extends Controller
     {
         // Crear una consulta base
         $query = CompraVenta::query()
-            ->join('coche', 'compra_venta.matricula', '=', 'coche.matricula') // Unir con la tabla coche
-            ->join('instalaciones', 'coche.id_instalacion', '=', 'instalaciones.id_instalacion') // Unir con la tabla instalaciones
-            ->select('compra_venta.*'); // Selecciona todos los campos de compra_venta
+            ->join('coche', 'compra_venta.matricula', '=', 'coche.matricula')
+            ->join('instalaciones', 'coche.id_instalacion', '=', 'instalaciones.id_instalacion')
+            ->select('compra_venta.*');
 
         // Filtrar por id_empresa
         $query->where('instalaciones.id_empresa', $id_empresa);
 
         // Filtrar por matricula, si se proporciona
         if ($matricula) {
-            $query->where('coche.matricula', $matricula); // Asegúrate de que el campo sea correcto
+            // Convertir ambos lados de la comparación a minúsculas y eliminar espacios en blanco
+            $matricula = strtolower(trim($matricula)); // Convierte la matrícula a minúsculas y elimina espacios
+            $query->whereRaw('LOWER(TRIM(coche.matricula)) = ?', [$matricula]); // Comparar matrícula insensible a mayúsculas/minúsculas y espacios
         }
 
         // Ejecutar la consulta y obtener los resultados

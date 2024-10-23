@@ -41,7 +41,7 @@ class AuthEmpresa extends Controller
 
 
 
-        // Comenzamos una transacción
+        // Comenzamos una transaccióncd
         DB::beginTransaction();
 
         try {
@@ -76,7 +76,7 @@ class AuthEmpresa extends Controller
                 'apellido' => $request->apellido,
                 'email' => $request->email,
                 'telefono' => $request->telefono,
-                'password' => $request->password, 
+                'password' => $request->password,
                 'tipoUser' => $request->tipoUser
             ]);
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import './registro.css';
+import photo from "../logo/Logo.webp";
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
   const [instalacionesCount, setInstalacionesCount] = useState('');
@@ -109,6 +110,7 @@ const MultiStepForm = () => {
     <div className="container mt-4 d-flex justify-content-center w-100">
       <div className="registro-container d-flex w-100">
         <div className="registro-left">
+          <img src={photo} alt="Logo" className="registro-logo"/>
           <h2 className="text-center text-light mt-4">Registro de Empresa</h2>
         </div>
         <div className="registro-right">

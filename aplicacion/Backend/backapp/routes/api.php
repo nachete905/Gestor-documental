@@ -9,6 +9,8 @@ use App\Http\Controllers\AuthEmpresa;
 use App\Http\Controllers\ReservaCoche;
 use App\Http\Controllers\AuthCoche;
 use App\Http\Controllers\PropietarioController;
+use App\Http\Controllers\ChatController;
+
 
 Route::get('coches/{id_instalacion}/{matricula?}', [CocheController::class, 'obtenerCoches']);
 Route::get('tiendaCoches/{id_empresa}', [tiendaCoche::class, 'extraerDatosCoches']);
@@ -20,10 +22,11 @@ Route::get('getUserData', [AuthController::class, 'getUserData']);
 Route::get('usuarios', [AuthController::class, 'getUsers']);
 Route::get('estadoCoches/{id_empresa}',[AuthCoche::class,'estadoCoche']);
 Route::get('registroCompraVenta/{id_empresa}/{matricula?}', [AuthCoche::class, 'registroCompraVenta']);
-Route::get('coche/documentacion/{matricula}', [AuthCoche::class, 'obtenerDocumentacionPorMatricula']);
 Route::get('propietarios/{id_empresa}/{nombre?}', [PropietarioController::class, 'obtenerPropietarios']);
-Route::get('documentacionPropietario/{dni}', [PropietarioController::class, 'obtenerPropietarioPorDni']);
 
+
+Route::Post('documentacionPropietario/{dni}', [PropietarioController::class, 'obtenerPropietarioPorDni']);
+Route::Post('coche/documentacion/{matricula}', [AuthCoche::class, 'obtenerDocumentacionPorMatricula']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('registrar', [AuthController::class, 'registro']);
 Route::post('registroAdmin',[AuthController::class, 'registroPorAdmin']);

@@ -12,27 +12,41 @@ const getPhotoUrl = (photoPath) => {
 };
 
 function Documentacion() {
-    const { matricula } = useParams();
+
     const [documentacion, setDocumentacion] = useState(null);
     const [error, setError] = useState('');
     const [modalImageUrl, setModalImageUrl] = useState(null); // Estado para la imagen del modal
     const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar la visibilidad del modal
+    const [matricula, setMatricula] = useState(null);
 
     useEffect(() => {
-        // Hacer una petición al backend para obtener la documentación del coche
-        fetch(`http://localhost:8000/api/coche/documentacion/${matricula}`)
-            .then(response => {
-                if (!response.ok) throw new Error('Error al obtener la documentación del coche');
-                return response.json();
+        const matriculaGuardada = localStorage.getItem('matricula');
+        if (matriculaGuardada) {
+
+            // Hacer una solicitud POST para obtener la documentación usando la matrícula en la URL
+            fetch(`http://localhost:8000/api/coche/documentacion/${matriculaGuardada}`, {
+                method: 'POST', // Mantener el método POST
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                // No enviar cuerpo, ya que la matrícula está en la URL
             })
-            .then(data => {
-                setDocumentacion(data);
-            })
-            .catch(error => {
-                console.error('Error fetching coche states:', error);
-                setError(error.message); // Actualizar el estado de error
-            });
-    }, [matricula]);
+                .then(response => {
+                    if (!response.ok) throw new Error('Error al obtener la documentación del coche');
+                    return response.json();
+                })
+                .then(data => {
+                    setDocumentacion(data);  // Almacenar la respuesta de la documentación
+                })
+                .catch(error => {
+                    console.error('Error fetching coche documentation:', error);
+                    setError(error.message);  // Actualizar el estado de error
+                });
+        } else {
+            setError('No se encontró la matrícula en la sesión.');
+        }
+    }, []);
 
     const openModal = (imageUrl) => {
         setModalImageUrl(imageUrl); // Establecer la URL de la imagen para el modal

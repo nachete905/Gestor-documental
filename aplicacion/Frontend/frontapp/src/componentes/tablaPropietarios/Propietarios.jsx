@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import jsPDF from "jspdf";
 
 export default function Coches() {
@@ -6,6 +7,19 @@ export default function Coches() {
     const [busqueda, setBusqueda] = useState(""); // Estado para la búsqueda
     const [error, setError] = useState(""); // Estado para los errores
     const [empresaId, setEmpresaId] = useState(null);
+    const [dots, setDots] = useState(0); // Estado para los puntos de la animación
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setDots((prevDots) => (prevDots + 1) % 4);
+        }, 300);
+        return () => clearInterval(interval); // Limpiar intervalo al desmontar
+    }, []);
+
+
+    const puntosAnimados = ".".repeat(dots);
 
     const obtenerPropietario = (query = "") => {
         fetch('http://localhost:8000/api/getUserData', {
@@ -36,6 +50,7 @@ export default function Coches() {
                         .then((data) => {
                             if (data) {
                                 setPropietarios(Array.isArray(data) ? data : [data]);
+                                setLoading(false);
                             } else {
                                 setPropietarios([]);
                             }
@@ -43,7 +58,8 @@ export default function Coches() {
                         })
                         .catch((error) => {
                             console.error("Error fetching data:", error);
-                            setError("No se encontraron coches");
+                            setError("No se encontraron propietarios");
+                            setLoading(false);
                             setPropietarios([]);
                         });
                 }
@@ -60,7 +76,7 @@ export default function Coches() {
     }, [])
 
     const handleBusqueda = (e) => {
-        setBusqueda(e.target.value); // Actualiza el estado de búsqueda
+        setBusqueda(e.target.value);
     };
 
     const handleSubmit = (e) => {
@@ -72,6 +88,11 @@ export default function Coches() {
         setBusqueda("");
         obtenerPropietario(); // Llama a obtenerPropietario sin parámetros para mostrar todos
     };
+    const  enviarDNI = (DNI) =>{
+        localStorage.setItem('DNI', DNI);
+        let DNIenviar = localStorage.getItem('DNI');
+        navigate('/documentacionPropietario')
+    }
     const generarPDF = (propietarios) => {
         const doc = new jsPDF();
         doc.setFontSize(16);
@@ -100,63 +121,135 @@ export default function Coches() {
         doc.save("propietarios.pdf");
     };
 
+    if (loading) {
+        return (
+            <div className="text-center mt-5 fs-2 bg-dark text-white rounded p-3">
+                <div className="loading-circle">
+                    <div>
+                        Cargando<span>{puntosAnimados}</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Si hay un error, mostrar el mensaje de error
+    if (error) {
+        return <div className="text-center mt-5 fs-2 bg-dark text-danger rounded p-3">{error}</div>;
+    }
+
 
 
     return (
         <div className='container'>
             <div className="tabla">
                 <h2>Lista de propietarios</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="mb-3">
                     <input
                         type="text"
+                        className='form-control mb-2'
                         name="busqueda"
                         id="busqueda"
                         placeholder="Buscar por DNI"
                         value={busqueda}
-                        onChange={handleBusqueda} // Actualiza el estado con cada cambio en el input
+                        onChange={handleBusqueda}
                     />
-                    <button type="submit">Buscar</button>
+                    <button type="submit" className='btn btn-primary w-100'>Buscar</button>
                 </form>
-                <button onClick={mostrarTodosLosPropietarios} className="mt-3 rounded">
+                <button onClick={mostrarTodosLosPropietarios} className="btn btn-secondary mt-3 rounded w-100">
                     Mostrar Todos
                 </button>
-                {error && <p>{error}</p>} {/* Mostrar mensaje de error si hay */}
-                <table>
-                    <thead>
-                    <tr>
-                        <th>DNI</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Teléfono</th>
-                        <th>Matricula</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {propietarios.length > 0 ? (
-                        propietarios.map((propietario) => (
-                            <tr key={propietario.DNI}>
-                                <td>
-                                    <a href={`/documentacionPropietario/${propietario.DNI}`}
-                                       style={{textDecoration: 'none'}}>
-                                        {propietario.DNI}
-                                    </a>
-                                </td>
-                                <td>{propietario.nombre}</td>
-                                <td>{propietario.apellido}</td>
-                                <td>{propietario.email}</td>
-                                <td>{propietario.telefono}</td>
-                                <td>{propietario.matricula}</td>
+                <div className='table d-none d-lg-block'>
+                    <table className='table mt-3'>
+                        <thead>
+                        <tr>
+                            <th>DNI</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Matrícula</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {propietarios.length > 0 ? (
+                            propietarios.map((propietario) => (
+                                <tr key={propietario.DNI}>
+                                    <td>
+                                        <button
+                                            onClick={() => enviarDNI(propietario.DNI)}
+                                            className="btn btn-link p-0"
+                                            style={{
+                                                textDecoration: 'none',
+                                                border: 'none',
+                                                background: 'none',
+                                                color: 'blue'
+                                            }}
+                                        >
+                                            {propietario.DNI}
+                                        </button>
+                                    </td>
+                                    <td>{propietario.nombre}</td>
+                                    <td>{propietario.apellido}</td>
+                                    <td>{propietario.email}</td>
+                                    <td>{propietario.telefono}</td>
+                                    <td>{propietario.matricula}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="6">No se encontraron propietarios</td>
                             </tr>
+                        )}
+                        </tbody>
+                    </table>
+                </div>
+
+                {/* Formato de tarjeta para pantallas pequeñas */}
+                <div className='d-block d-lg-none'>
+                    {propietarios.length > 0 ? (
+                        propietarios.map((propietario, index) => (
+                            <div className="accordion mt-3" id={`accordion-${index}`} key={index}>
+                                <div className="accordion-item">
+                                    <h2 className="accordion-header" id={`heading-${index}`}>
+                                        <button className="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target={`#collapse-${index}`} // Usamos el índice para hacer que sea único
+                                                aria-expanded="false"
+                                                aria-controls={`collapse-${index}`} // También aquí para hacerlo único
+                                        >
+                                            {propietario.DNI}
+                                        </button>
+                                    </h2>
+                                    <div
+                                        id={`collapse-${index}`} // Identificador único
+                                        className="accordion-collapse collapse"
+                                        aria-labelledby={`heading-${index}`}
+                                        data-bs-parent={`#accordion-${index}`}
+                                    >
+                                        <div className="accordion-body">
+                                            <div>
+                                                <button
+                                                    onClick={() => enviarDNI(propietario.DNI)} // Llama a la función con la matrícula
+                                                    className="btn btn-link"
+                                                    style={{textDecoration: 'underline', color: 'blue'}}
+                                                >
+                                                    Documentación del propietario
+                                                </button>
+                                            </div>
+                                            <div><p><strong>Nombre:</strong> {propietario.nombre}</p></div>
+                                            <div><p><strong>Apellido:</strong> {propietario.apellido}</p></div>
+                                            <div><p><strong>Email:</strong> {propietario.email}</p></div>
+                                            <div><p><strong>Matrícula:</strong> {propietario.matricula}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         ))
                     ) : (
-                        <tr>
-                            <td colSpan="10">No se encontraron propietarios</td>
-                        </tr>
+                        <div>No se encontraron coches</div>
                     )}
-                    </tbody>
-                </table>
-                <button onClick={() => generarPDF(propietarios)} className="mt-3 rounded">
+                </div>
+                <button onClick={() => generarPDF(propietarios)} className="btn btn-primary mt-3 rounded w-100">
                     Generar PDF
                 </button>
             </div>

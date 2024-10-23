@@ -123,6 +123,9 @@
       <excludeFolder url="file://$MODULE_DIR$/backapp/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/backapp/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/backapp/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/backapp/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/backapp/vendor/paragonie/sodium_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/backapp/vendor/pusher/pusher-php-server" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

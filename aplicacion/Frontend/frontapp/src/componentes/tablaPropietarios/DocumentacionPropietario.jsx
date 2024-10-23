@@ -16,22 +16,37 @@ function DocumentacionPropietario(){
     const [error, setError] = useState('');
     const [modalImageUrl, setModalImageUrl] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [DNI, setDNI] = useState(null);
 
     useEffect(() => {
-        // Hacer una petición al backend para obtener la documentación del coche
-        fetch(`http://localhost:8000/api/documentacionPropietario/${dni}`)
-            .then(response => {
-                if (!response.ok) throw new Error('Error al obtener la documentación del propietario');
-                return response.json();
+        const dniGuardado = localStorage.getItem('DNI');
+        setDNI(dniGuardado)
+        if (dniGuardado) {
+
+            // Hacer una solicitud POST para obtener la información usando el DNI en la URL
+            fetch(`http://localhost:8000/api/documentacionPropietario/${dniGuardado}`, {
+                method: 'POST', // Mantener el método POST
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                // No enviar cuerpo, ya que el DNI está en la URL
             })
-            .then(data => {
-                setDocumentacion(data);
-            })
-            .catch(error => {
-                console.error('Error fetching coche states:', error);
-                setError(error.message);
-            });
-    }, [dni]);
+                .then(response => {
+                    if (!response.ok) throw new Error('Error al obtener la documentación del usuario');
+                    return response.json();
+                })
+                .then(data => {
+                    setDocumentacion(data);  // Almacenar la respuesta de la documentación
+                })
+                .catch(error => {
+                    console.error('Error fetching user documentation:', error);
+                    setError(error.message);  // Actualizar el estado de error
+                });
+        } else {
+            setError('No se encontró el DNI en la sesión.');
+        }
+    }, []);
 
     const openModal = (imageUrl) => {
         console.log(imageUrl)
@@ -44,8 +59,9 @@ function DocumentacionPropietario(){
         setIsModalOpen(false);
         setModalImageUrl(null);
     };
-    let fotoNominas = documentacion ? getPhotoUrl(documentacion.documentacion.nominas) : null;
-    let fotoCarnet = documentacion ? getPhotoUrl(documentacion.documentacion.carnet) : null;
+    let fotoNominas = documentacion?.documentacion?.nominas ? getPhotoUrl(documentacion.documentacion.nominas) : null;
+    let fotoCarnet = documentacion?.documentacion?.carnet ? getPhotoUrl(documentacion.documentacion.carnet) : null;
+
 
     if (error) {
         return <p>{error}</p>;
@@ -56,9 +72,9 @@ function DocumentacionPropietario(){
     }
     return (
         <div>
-            <div id="pdf-content"> {/* Contenedor para html2canvas */}
+            <div id="pdf-content">
                 <div className='tituloDocumentacion'>
-                    <h2>Documentación del propietario : {dni} </h2>
+                    <h2>Documentación del propietario : {DNI} </h2>
                     <ul>
                         <li>Nombre: {documentacion.nombre}</li>
                         <li>Apellido: {documentacion.apellido}</li>

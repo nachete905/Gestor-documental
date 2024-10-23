@@ -28,7 +28,7 @@ class CompraVenta extends Model
     // Relación con el modelo `DocumentacionPropietario`
     public function propietario()
     {
-        return $this->belongsTo(Propietario::class, 'id_propietario', 'id_propietario'); // Cambiado a 'id_propietario'
+        return $this->belongsTo(Propietario::class, 'id_propietario', 'id_propietario');
     }
 
     // Relación con el modelo `DocumentacionCoche`
@@ -40,7 +40,7 @@ class CompraVenta extends Model
     // Relación con el modelo `Coche`
     public function coche()
     {
-        return $this->belongsTo(Coche::class, 'coche', 'matricula'); // Asegúrate de que 'matricula' es la clave en el modelo Coche
+        return $this->belongsTo(Coche::class, 'coche', 'matricula');
     }
 
 
