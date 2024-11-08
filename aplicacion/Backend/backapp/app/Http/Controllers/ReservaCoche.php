@@ -14,6 +14,10 @@ use App\Models\Usuario;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+/** Esta clase gestiona las reservas de coches, incluyendo la validación y procesamiento de datos,
+ * el almacenamiento de documentación del propietario y la actualización del estado del coche,
+ * además de registrar la transacción en las tablas correspondientes.
+*/
 
 class ReservaCoche extends Controller
 {

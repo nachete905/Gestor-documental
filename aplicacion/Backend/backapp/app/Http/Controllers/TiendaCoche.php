@@ -6,6 +6,10 @@ namespace App\Http\Controllers;
 use App\Models\Coche;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Log;
+/** Esta clase maneja la extracción de datos de coches para una empresa específica,
+ * obteniendo los coches adquiridos por los usuarios de la empresa y cargando sus fotos asociadas.
+*/
+
 class tiendaCoche extends Controller
 
 {   public function extraerDatosCoches($id_empresa)

@@ -91,7 +91,7 @@ export default function TiendaCoches() {
 
     return (
         <div className="container mt-5 mb-5">
-            <h2 className="text-center mb-4">Tienda de Coches</h2>
+            <h2 className="text-center mb-4">Gestión de los coches</h2>
             <div className="row">
                 {cochesDisponibles.map(coche => (
                     <div key={coche.matricula} className="col-md-4 mb-4">

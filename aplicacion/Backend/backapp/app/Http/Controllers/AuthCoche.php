@@ -6,7 +6,12 @@ use App\Models\DocumentacionCoche;
 use App\Models\CompraVenta;
 
 use Illuminate\Http\Request;
-
+/**
+ *
+ * Esta clase contiene métodos para gestionar operaciones relacionadas con coches en la empresa,
+ * como obtener el estado de los coches asociados a una empresa, registrar las transacciones de
+ * compra y venta, y obtener la documentación específica de un coche.
+ */
 class AuthCoche extends Controller
 {
     public function estadoCoche($id_empresa)

@@ -274,7 +274,7 @@ export default function Coches() {
                                             <div>
                                                 {/* Botón para enviar matrícula */}
                                                 <button
-                                                    onClick={() => enviarMatricula(coche.matricula)} // Llama a la función con la matrícula
+                                                      onClick={() => enviarMatricula(coche.matricula)} // Llama a la función con la matrícula
                                                     className="btn btn-link"
                                                     style={{textDecoration: 'underline', color: 'blue'}}
                                                 >

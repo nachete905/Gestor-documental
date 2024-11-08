@@ -8,7 +8,7 @@ export function validarNombre() {
     const regex = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/;
 
     // Validar el campo de nombre
-    if (!nombreInput.value.match(regex) || nombreInput.value.trim() === "") {
+    if (!regex.test(nombreInput.value.trim()) || nombreInput.value.trim() === "") {
         // Si no cumple la validación, cambiar el borde a rojo y mostrar el mensaje de error
         nombreInput.style.border = "2px solid red";
         nombreError.style.display = 'block'; // Mostrar el mensaje de error
@@ -20,6 +20,7 @@ export function validarNombre() {
         return true;
     }
 }
+
 
 export function validarApellido(){
     const apellidoInput = document.getElementById("apellido");
@@ -123,6 +124,119 @@ export function validarPassword() {
         requisitosList.style.display = 'block';  // Mostrar la lista cuando algún requisito no se cumple
     }
 }
+
+
+export function validarFotos() {
+    let fotoNomina = document.getElementById('fotoNomina');
+    let nomina = fotoNomina.value;
+    let fotoCarnet = document.getElementById('fotoCarnet');
+    let carnet = fotoCarnet.value;
+
+
+    let error1 = document.getElementById('foto1-error');
+    let error2 = document.getElementById('foto2-error');
+
+
+    let isValid = true;
+
+    if (nomina === '') {
+        fotoNomina.style.border = "2px solid red";
+        error1.style.display = 'block';
+        isValid = false;
+    } else {
+        fotoNomina.style.border = '';
+        error1.style.display = 'none';
+    }
+
+    if (carnet === '') {
+        fotoCarnet.style.border = "2px solid red";
+        error2.style.display = 'block';
+        isValid = false;
+    } else {
+        fotoCarnet.style.border = '';
+        error2.style.display = 'none';
+    }
+
+
+
+    return isValid;
+}
+
+
+
+export function validarDNI() {
+    let dniElement = document.getElementById('dni'); // elemento HTML
+    let dni = dniElement.value; // valor del campo de entrada
+    let errorDNI = document.getElementById('dni-error');
+
+    let letraDNI = dni.substring(8, 9);
+    let numDNI = parseInt(dni.substring(0, 8));
+
+    let letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+    let letraCorrecta = letras[numDNI % 23];
+    let formatoDNI = /^\d{8}[a-zA-Z]$/;
+
+    if (formatoDNI.test(dni) && letraDNI.toUpperCase() === letraCorrecta) {
+        dniElement.style.border = '';
+        errorDNI.style.display = 'none';
+        return true;
+    } else {
+        dniElement.style.border = "2px solid red";
+        errorDNI.style.display = 'block'; // Mostrar el mensaje de error
+        return false;
+    }
+}
+
+
+export function validarCoche(){
+    let cocheElement = document.getElementById('coche');
+    let error = document.getElementById('coche-error');
+
+    if(cocheElement === ''){
+        cocheElement.style.border = "2px solid red";
+        error.style.display = 'block';
+        return false;
+    }else{
+        cocheElement.style.border = '';
+        error.style.display = 'none';
+        return true;
+    }
+}
+
+export function validarMatricula(){
+    let matriculaElement = document.getElementById('matricula');
+    let matricula = matriculaElement.value;
+    let error = document.getElementById('matricula-error');
+    let matriculavalida = /^[A-Z]{1,2}-?\d{4}-?[A-Z]{1,2}$|^\d{4}-?[A-Z]{3}$/; //abarca formato antiguo y nuevo de matriculas
+
+    if(matriculavalida.test(matricula)){
+        matriculaElement.style.border = '';
+        error.style.display = 'none';
+        return true;
+    }else{
+        matriculaElement.style.border = "2px solid red";
+        error.style.display = 'block';
+        return false;
+    }
+
+
+}
+
+export function validarVendedor(){
+    let selectValue = document.getElementById('vendedor');
+    let error = document.getElementById('vendedor-error');
+
+    if(selectValue === ''){
+        selectValue.style.border = "2px solid red";
+        error.style.display = 'block';
+        return false;
+    }else{
+        selectValue.style.border = '';
+        error.style.display = 'none';
+        return true;
+    }
+}
+
 
 
 

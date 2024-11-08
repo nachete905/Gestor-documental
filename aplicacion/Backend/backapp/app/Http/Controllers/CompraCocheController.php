@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Models\Usuario;
 use Exception;
+/**Esta clase gestiona las operaciones de compra de coches, incluyendo la validación de datos,
+ * el registro de coches y documentación, y el almacenamiento de fotos y detalles de transacciones de compra.
+*/
 
 class CompraCocheController extends Controller
 {

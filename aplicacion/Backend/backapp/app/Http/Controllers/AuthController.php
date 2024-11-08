@@ -17,8 +17,16 @@ use Illuminate\Support\Facades\Auth;
 
 use Exception;
 
+/**
+ * La clase `AuthController` maneja la autenticación y autorización de usuarios.
+ * Contiene métodos para el registro de usuarios, inicio de sesión, cierre de sesión,
+ * y operaciones relacionadas con el token JWT, como la generación, invalidación y
+ * refresco. Además, permite obtener información del usuario autenticado y verificar
+ * los permisos de administración.
+ */
 class AuthController extends Controller
 {
+
     public function obtenerInstalacionesPorEmpresa($id_empresa)
     {
         try {
@@ -121,7 +129,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'Validation error', 'message' => $e->getMessage()], 422);
         } catch (Exception $e) {
             return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
-            
+
         }
 
         try {

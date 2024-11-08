@@ -11,7 +11,7 @@ export default function Carrusel() {
             {/* Carrusel para pantallas grandes */}
             <div
                 id="carouselLg"
-                className="carousel slide w-50 d-none d-lg-block mx-auto mt-5 border border-4 border-info"
+                className="carousel slide w-75 d-none d-lg-block mx-auto mt-5 border border-4 border-info"
                 data-bs-ride="carousel"
             >
                 <div className="carousel-inner">

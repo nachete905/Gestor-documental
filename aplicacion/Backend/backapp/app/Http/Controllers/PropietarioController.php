@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Propietario;
 use App\Models\Coche;
 use App\Models\Instalaciones;
-
+/** Esta clase controla la gestión de propietarios de coches, permitiendo obtener una lista de propietarios
+ * asociados a una empresa específica y buscar un propietario por DNI con su documentación asociada.
+ */
 class PropietarioController extends Controller
 {
     public function obtenerPropietarios($id_empresa, $dni = null)

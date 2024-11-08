@@ -70,38 +70,40 @@ function DocumentacionPropietario(){
     if (!documentacion) {
         return <p>Cargando documentación...</p>;
     }
+    const tieneDocumentacion = documentacion.documentacion && (documentacion.documentacion.nominas || documentacion.documentacion.carnet);
+
     return (
         <div>
             <div id="pdf-content">
                 <div className='tituloDocumentacion'>
-                    <h2>Documentación del propietario : {DNI} </h2>
+                    <h2>Documentación del propietario: {DNI}</h2>
                     <ul>
                         <li>Nombre: {documentacion.nombre}</li>
                         <li>Apellido: {documentacion.apellido}</li>
-                        <li>email: {documentacion.email}</li>
+                        <li>Email: {documentacion.email}</li>
                     </ul>
                 </div>
-                {/* Nueva sección para mostrar las fotos */}
+                {/* Nueva sección para mostrar el mensaje si no hay documentación */}
                 <div className='containerDocumentacion'>
                     <h3>Fotos de Documentación:</h3>
-                    <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                        {documentacion.documentacion.nominas && (
-                            <div onClick={() => openModal(fotoNominas)}
-                                 style={{ cursor: 'pointer' }}>
-                                <h4>Nómina</h4>
-                                <img src={getPhotoUrl(documentacion.documentacion.nominas)}
-                                     alt="Permiso de Circulación" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                            </div>
-                        )}
-                        {documentacion.documentacion.carnet && (
-                            <div onClick={() => openModal(fotoCarnet)}
-                                 style={{ cursor: 'pointer' }}>
-                                <h4>Carnet de conducir</h4>
-                                <img src={getPhotoUrl(documentacion.documentacion.carnet)}
-                                     alt="Ficha Técnica" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                            </div>
-                        )}
-                    </div>
+                    {!tieneDocumentacion ? (
+                        <h2 className='text-light'>No tiene documentación</h2> // Mensaje si no hay documentación
+                    ) : (
+                        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+                            {documentacion.documentacion.nominas && (
+                                <div onClick={() => openModal(fotoNominas)} style={{ cursor: 'pointer' }}>
+                                    <h4>Nómina</h4>
+                                    <img src={getPhotoUrl(documentacion.documentacion.nominas)} alt="Nómina" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+                                </div>
+                            )}
+                            {documentacion.documentacion.carnet && (
+                                <div onClick={() => openModal(fotoCarnet)} style={{ cursor: 'pointer' }}>
+                                    <h4>Carnet de conducir</h4>
+                                    <img src={getPhotoUrl(documentacion.documentacion.carnet)} alt="Carnet" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className='modales'>
@@ -127,9 +129,9 @@ function DocumentacionPropietario(){
                     </div>
                 )}
             </div>
-
         </div>
     );
 }
+
 
 export default DocumentacionPropietario

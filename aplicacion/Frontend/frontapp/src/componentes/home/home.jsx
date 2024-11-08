@@ -8,6 +8,9 @@ import './home.css';
 import Carrusel from "../homeComponents/Carrusel";
 import InformationSection from "../homeComponents/InformationSection";
 import PiePagina from "../homeComponents/PiePagina";
+import './iconosGestion/iconoPersona/style.css'
+import './iconosGestion/iconoCoche/style.css';
+import './iconosGestion/iconoRegistro/style.css';
 
 
 function handleTokenExpiry(navigate) {
@@ -30,6 +33,18 @@ function handleTokenExpiry(navigate) {
         console.error('Error al renovar el token:', error);
     });
 
+}
+//funcion de ejemplo, hay que modificarla
+function abrirPDF() {
+    var url = '/guiaUsuario.pdf'; // Reemplaza 'ruta-al-archivo.pdf' con la ubicación de tu archivo PDF
+    var win = window.open(url, '_blank');
+    if (win) {
+        // La ventana se abrió correctamente
+        win.focus(); // Enfoca la nueva pestaña si ya existe
+    } else {
+        // Bloquea la apertura múltiple de ventanas emergentes
+        alert('Por favor, habilita las ventanas emergentes en tu navegador.');
+    }
 }
 export default function Home({ isAuthenticated, onLogout }) {
     const [userType, setUserType] = useState(null);
@@ -55,8 +70,11 @@ export default function Home({ isAuthenticated, onLogout }) {
                     console.log(data)
                     if (data.isAdmin) {
                         setUserType(1); // admin
+                        localStorage.setItem('tipoUsuario', '1');
                     }else if(data.isSuperRoot){
                         setUserType(3); // super admin
+                    }else{
+                        setUserType(4);
                     }
                 })
                 .catch(error => {
@@ -137,51 +155,13 @@ export default function Home({ isAuthenticated, onLogout }) {
             <nav className="cabecera w-100 d-flex justify-content-between align-items-center p-2 position-relative">
                 <div className="d-flex align-items-center">
                     <img src={logo} alt="Logo" className="logo me-3" style={{height: "50px"}}/>
-                    {/* Título visible solo en pantallas md y superiores */}
-                    <h2 className="mb-0 d-none d-md-block">Gestión ocasión</h2>
+                    <h1 className="mb-0 d-none d-md-block">Gestión de vehículos de ocasión</h1>
                 </div>
                 <div className="d-flex align-items-center">
-                    {/* Este es el menú en forma de ícono para pantallas menores a md */}
-                    <div className="dropdown d-md-none"> {/* Visible solo en pantallas menores a md */}
-                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                 className="bi bi-list" viewBox="0 0 16 16">
-                                <path fillRule="evenodd"
-                                      d="M1 2h14a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2zm0 5h14a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2zm0 5h14a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2z"/>
-                            </svg>
-                        </button>
-                        <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
-                            <li><a className="dropdown-item" href="#">Sobre nosotros</a></li>
-                            <li><a className="dropdown-item" href="#a-que-nos-dedicamos">A qué nos dedicamos</a></li>
-                            <li><a className="dropdown-item" href="#">Cómo funcionamos</a></li>
-                            <li><a className="dropdown-item" href="#coches-a-la-venta">Ver coches a la venta</a></li>
-                            <li><a className="dropdown-item" href="">Buscar coches</a></li>
-                            {userType === 1 && (
-                                <>
-                                    <li><a className="dropdown-item" href="" onClick={handleTablaCochesClick}>Ver
-                                        información de los coches</a></li>
-                                    <li><a className="dropdown-item" href="" onClick={hanleTablaPropietarios}>Ver
-                                        información de los propietarios</a></li>
-                                    <li><a className="dropdown-item" href="" onClick={handleRegistroCompraVenta}>Ver registro de compra-venta</a></li>
-                                </>
-                            )}
-                        </ul>
-                    </div>
-
-
-                    {/* Menú visible en pantallas md y superiores */}
-                    <div className="dropdown me-2 d-none d-md-block">
-                        <button className="btn btn-secondary dropdown-toggle bg-dark" type="button"
-                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Información
-                        </button>
-                        <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
-                            <li><a className="dropdown-item" href="#">Sobre nosotros</a></li>
-                            <li><a className="dropdown-item" href="#a-que-nos-dedicamos">A qué nos dedicamos</a></li>
-                            <li><a className="dropdown-item" href="#">Cómo funcionamos</a></li>
-                            <li><a className="dropdown-item" href="#coches-a-la-venta">Ver coches a la venta</a></li>
-                        </ul>
+                    <div className="d-flex">
+                        <a href='#a-que-nos-dedicamos' className="btn btn-secondary bg-dark text-light me-2 flex-fill">A que nos dedicamos</a>
+                        <a className="btn btn-secondary bg-dark text-light me-2 flex-fill" onClick={abrirPDF}>Guía de usuario</a>
+                        <a href='#coches-a-la-venta' className="btn btn-secondary bg-dark text-light me-2 flex-fill">Ver coches</a>
                     </div>
 
                     <div className="dropdown me-2 d-none d-md-block">
@@ -190,21 +170,21 @@ export default function Home({ isAuthenticated, onLogout }) {
                             ¿Qué quieres hacer?
                         </button>
                         <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                            <li><a className="dropdown-item" href="">Buscar coches</a></li>
                             {userType === 1 && (
                                 <>
                                     <li><a className="dropdown-item" href="" onClick={handleTablaCochesClick}>Ver
                                         información de los coches</a></li>
                                     <li><a className="dropdown-item" href="" onClick={hanleTablaPropietarios}>Ver
                                         información de los propietarios</a></li>
-                                    <li><a className="dropdown-item" href="" onClick={handleRegistroCompraVenta}>Ver registro de compra-venta</a></li>
+                                    <li><a className="dropdown-item" href="" onClick={handleRegistroCompraVenta}>Ver
+                                        registro de compra-venta</a></li>
                                 </>
                             )}
                         </ul>
                     </div>
 
                     <div className="dropdown me-2 d-none d-md-block">
-                        <button className="btn btn-secondary dropdown-toggle bg-dark" type="button"
+                        <button className="btn btn-secondary dropdown-toggle bg-dark text-light" type="button"
                                 id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
                             {isAuthenticated ? (
                                 <>
@@ -251,14 +231,33 @@ export default function Home({ isAuthenticated, onLogout }) {
                 </div>
             </nav>
 
+
             <main className=''>
                 <Carrusel></Carrusel>
+                {isAuthenticated && userType === 1 && (
+                    <div className="enlaces-adicionales mt-3 d-flex justify-content-around bg-light border border-info rounded w-75 mx-auto">
+                        <div className="text-center d-flex flex-column align-items-center">
+                            <a className="icon-person fs-1 text-decoration-none" onClick={hanleTablaPropietarios}></a>
+                            <p className='text-info fs-4 mb-0' onClick={hanleTablaPropietarios}>Propietarios</p>
+                        </div>
+                        <div className="text-center d-flex flex-column align-items-center">
+                            <a className="icon-info fs-1 text-decoration-none" onClick={handleRegistroCompraVenta}></a>
+                            <p className='text-info fs-4 mb-0' onClick={handleRegistroCompraVenta}>Registro compra/venta</p>
+                        </div>
+                        <div className="text-center d-flex flex-column align-items-center">
+                            <a className="icon-automobile fs-1 text-decoration-none" onClick={handleTablaCochesClick}></a>
+                            <p className='text-info fs-4 mb-0' onClick={handleTablaCochesClick}>Coches</p>
+                        </div>
+                    </div>
+                )}
                 <InformationSection></InformationSection>
+
                 {/* Super root Content Section */}
                 {isAuthenticated ? (
                     <>
                         {userType === 3 ? (
-                            <div className="registroEmpresaUser mt-5 p-5 bg-light border border-info rounded w-75 mx-auto">
+                            <div
+                                className="registroEmpresaUser mt-5 p-5 bg-light border border-info rounded w-75 mx-auto">
                                 <h3 className="text-center text-info">Registrar empresa con usuario</h3>
                                 <button type="submit" className="btn btn-info w-100"
                                         onClick={handleEmpresaRegisterClick}>Registrar

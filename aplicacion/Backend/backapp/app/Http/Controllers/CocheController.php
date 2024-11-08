@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Coche;
 use App\Models\Instalaciones;
 use Illuminate\Http\Request;
+/**
+ *
+ * Esta clase maneja la obtención de coches relacionados con una empresa específica. Permite
+ * buscar todos los coches asociados a las instalaciones de la empresa, así como filtrar por
+ * una matrícula específica si se proporciona.
+ */
 
 class CocheController extends Controller
 {

@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Esta clase maneja la creación de una empresa junto con sus instalaciones y
+ * el registro de un usuario asociado. Valida los datos de entrada y usa
+ * transacciones para asegurar que la empresa, sus instalaciones y el usuario
+ * se registren correctamente y de forma atómica.
+ */
 class AuthEmpresa extends Controller
 {
     // Método para registrar la empresa y sus instalaciones
