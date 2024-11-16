@@ -53,7 +53,7 @@ export default function Login({ onLogin }) {
     };
 
     return (
-        <div className="container d-flex justify-content-center align-items-center">
+        <div className="containerLogin d-flex justify-content-center align-items-center">
             <div className="login-container d-flex flex-column flex-lg-row">
                 <div className="login-left text-center text-lg-left d-none d-lg-block">
                     <img src={photo} alt="Logo" className="login-logo" />

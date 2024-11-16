@@ -1,8 +1,13 @@
 /* Estilo general de la tienda */
 
 
-.container {
-    color: #ffffff;
+.containerTienda {
+    background-color: #343a40  ;
+    min-height: 100vh;
+}
+.rowTienda{
+    width: 65%;
+    margin-left: 10%;
 }
 
 h2 {
@@ -13,7 +18,7 @@ h2 {
 
 /* Estilo para las tarjetas de los coches */
 .tienda-card {
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: black;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     overflow: hidden;

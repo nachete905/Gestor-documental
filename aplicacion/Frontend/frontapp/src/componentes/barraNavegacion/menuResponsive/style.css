@@ -17,6 +17,7 @@
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
+  font-size: 3em;
   text-transform: none;
   line-height: 1;
 
@@ -28,3 +29,4 @@
 .icon-menu:before {
   content: "\e9bd";
 }
+

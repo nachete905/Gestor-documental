@@ -4,13 +4,20 @@ import {jwtDecode} from 'jwt-decode';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import logo from '../logo/Logo.webp';
-import './home.css';
 import Carrusel from "../homeComponents/Carrusel";
 import InformationSection from "../homeComponents/InformationSection";
+import Information2 from "../homeComponents/Information2";
 import PiePagina from "../homeComponents/PiePagina";
 import './iconosGestion/iconoPersona/style.css'
 import './iconosGestion/iconoCoche/style.css';
 import './iconosGestion/iconoRegistro/style.css';
+import './iconosGestion/iconoActualizar/style.css'
+import './iconosGestion/iconoMail/style.css';
+import './iconosUsuarios/iconoRoot/style.css';
+import './iconosUsuarios/iconoUsuario/style.css';
+import './home.css';
+
+
 
 
 function handleTokenExpiry(navigate) {
@@ -73,7 +80,7 @@ export default function Home({ isAuthenticated, onLogout }) {
                         localStorage.setItem('tipoUsuario', '1');
                     }else if(data.isSuperRoot){
                         setUserType(3); // super admin
-                    }else{
+                    }else if(data.esNormal){
                         setUserType(4);
                     }
                 })
@@ -105,8 +112,6 @@ export default function Home({ isAuthenticated, onLogout }) {
     const handleCocheRegisterClick = () => {
         navigate('/formCoche');
     };
-
-
     const handleTablaCochesClick = ()  => {
         navigate('/coches');
     };
@@ -115,6 +120,15 @@ export default function Home({ isAuthenticated, onLogout }) {
     };
     const handleRegistroCompraVenta = () =>{
         navigate('/registroCompraVenta');
+    }
+    const handleActualizarEstado = () =>{
+        navigate('/actualizar');
+    }
+    const handleDarBajaEmpresa = () =>{
+        navigate('/darBaja');
+    }
+    const handleBuzon = () =>{
+        navigate('/buzon');
     }
 
 
@@ -152,105 +166,120 @@ export default function Home({ isAuthenticated, onLogout }) {
 
     return (
         <div className="home">
-            <nav className="cabecera w-100 d-flex justify-content-between align-items-center p-2 position-relative">
+            <nav className="cabecera navbar navbar-expand-lg navbar-dark w-100 p-2 position-relative">
+                {/* Logo y título */}
                 <div className="d-flex align-items-center">
                     <img src={logo} alt="Logo" className="logo me-3" style={{height: "50px"}}/>
-                    <h1 className="mb-0 d-none d-md-block">Gestión de vehículos de ocasión</h1>
+                    <h1 className="mb-0 d-none d-lg-block text-light" id='titulo1'>Gestión de vehículos de ocasión</h1>
                 </div>
-                <div className="d-flex align-items-center">
-                    <div className="d-flex">
-                        <a href='#a-que-nos-dedicamos' className="btn btn-secondary bg-dark text-light me-2 flex-fill">A que nos dedicamos</a>
-                        <a className="btn btn-secondary bg-dark text-light me-2 flex-fill" onClick={abrirPDF}>Guía de usuario</a>
-                        <a href='#coches-a-la-venta' className="btn btn-secondary bg-dark text-light me-2 flex-fill">Ver coches</a>
-                    </div>
 
-                    <div className="dropdown me-2 d-none d-md-block">
-                        <button className="btn btn-secondary dropdown-toggle bg-dark text-light" type="button"
-                                id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                            ¿Qué quieres hacer?
-                        </button>
-                        <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                            {userType === 1 && (
-                                <>
-                                    <li><a className="dropdown-item" href="" onClick={handleTablaCochesClick}>Ver
-                                        información de los coches</a></li>
-                                    <li><a className="dropdown-item" href="" onClick={hanleTablaPropietarios}>Ver
-                                        información de los propietarios</a></li>
-                                    <li><a className="dropdown-item" href="" onClick={handleRegistroCompraVenta}>Ver
-                                        registro de compra-venta</a></li>
-                                </>
-                            )}
-                        </ul>
-                    </div>
+                {/* Botón toggle para móviles */}
+                <button className="navbar-toggler ms-auto bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style={{width: "20%", padding: "5px", marginRight:"10%"}}>
+                    <span className="navbar-toggler-icon"></span>
+                </button>
 
-                    <div className="dropdown me-2 d-none d-md-block">
-                        <button className="btn btn-secondary dropdown-toggle bg-dark text-light" type="button"
-                                id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
-                            {isAuthenticated ? (
-                                <>
-                                    {(userType === 1 || userType === 3) ? (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             fill="currentColor" className="bi bi-person-fill-gear" viewBox="0 0 16 16">
-                                            <path
-                                                d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l-.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
-                                        </svg>
-                                    ) : (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                                        </svg>
-                                    )}
-                                </>
-                            ) : "Iniciar sesión"}
-                        </button>
-                        <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton3">
-                            {isAuthenticated ? (
-                                <>
-                                    <li><a className="dropdown-item" href="#" onClick={handleLogoutClick}>Cerrar
-                                        sesión</a></li>
-                                    {(userType === 1 || userType === 3) && (
-                                        <>
-                                            <li><a className="dropdown-item" href="" onClick={handleAdminRegisterClick}>Registrar
-                                                usuarios</a></li>
-                                            <li><a className="dropdown-item" href="" onClick={handleCocheRegisterClick}>Añadir
-                                                coche a la venta</a></li>
-                                        </>
-                                    )}
-                                </>
-                            ) : (
-                                <>
-                                    <li><a className="dropdown-item" href="" onClick={handleLoginClick}>Iniciar
-                                        sesión</a></li>
-                                    <li><a className="dropdown-item" href=""
-                                           onClick={handleRegisterClick}>Registrarse</a></li>
-                                </>
-                            )}
-                        </ul>
+                {/* Contenido colapsable */}
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <div className="d-flex flex-column flex-lg-row align-items-lg-center ms-lg-auto w-100">
+                        {/* Botones principales */}
+                        <div className="d-flex flex-column flex-lg-row align-items-lg-center">
+                            <a href="#a-que-nos-dedicamos" className="btn btn-secondary bg-dark text-light me-lg-2 mb-2 mb-lg-0 ">A que nos dedicamos</a>
+                            <a className="btn btn-secondary bg-dark text-light me-lg-2 mb-2 mb-lg-0 flex-fill" onClick={abrirPDF}>Guía de usuario</a>
+                            <a href="#coches-a-la-venta" className="btn btn-secondary bg-dark text-light me-lg-2 mb-2 mb-lg-0 ">Ver coches</a>
+                        </div>
+
+                        {userType === 1 && (
+                            <a className="icon-envelop  fs-4 btn btn-secondary bg-dark text-light me-lg-2 mb-2 mb-lg-0" onClick={handleBuzon}></a>
+                        )}
+
+                        {/* Dropdown "¿Qué quieres hacer?" */}
+                        <div className="dropdown mb-2 mb-lg-0">
+                            <button className="btn btn-secondary dropdown-toggle bg-dark text-light w-100" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                ¿Qué quieres hacer?
+                            </button>
+                            <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                {userType === 1 && (
+                                    <>
+                                        <li><a className="dropdown-item" href="#" onClick={handleTablaCochesClick}>Ver información de los coches</a></li>
+                                        <li><a className="dropdown-item" href="#" onClick={hanleTablaPropietarios}>Ver información de los propietarios</a></li>
+                                        <li><a className="dropdown-item" href="#" onClick={handleRegistroCompraVenta}>Ver registro de compra-venta</a></li>
+                                    </>
+                                )}
+                            </ul>
+                        </div>
+
+                        {/* Dropdown de sesión */}
+                        <div className="dropdown">
+                            <button className="btn btn-secondary dropdown-toggle bg-dark text-light w-100" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                {isAuthenticated ? (
+                                    <>
+                                        {(userType === 1 || userType === 3) ? (
+                                            <span className="icon-user-plus" style={{ fontSize: '16px', verticalAlign: 'middle' }}></span>
+                                        ) : (
+                                            <span className="icon-user" style={{ fontSize: '16px', verticalAlign: 'middle' }}></span>
+                                        )}
+                                    </>
+                                ) : (
+                                    "Iniciar sesión"
+                                )}
+                            </button>
+                            <ul className="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="dropdownMenuButton3">
+                                {isAuthenticated ? (
+                                    <>
+                                        <li><a className="dropdown-item" href="#" onClick={handleLogoutClick}>Cerrar sesión</a></li>
+                                        {(userType === 1 || userType === 3) && (
+                                            <>
+                                                <li><a className="dropdown-item" href="#" onClick={handleAdminRegisterClick}>Registrar usuarios</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={handleCocheRegisterClick}>Añadir coche a la venta</a></li>
+                                            </>
+                                        )}
+                                    </>
+                                ) : (
+                                    <>
+                                        <li><a className="dropdown-item" href="#" onClick={handleLoginClick}>Iniciar sesión</a></li>
+                                        <li><a className="dropdown-item" href="#" onClick={handleRegisterClick}>Registrarse</a></li>
+                                    </>
+                                )}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </nav>
 
-
             <main className=''>
                 <Carrusel></Carrusel>
                 {isAuthenticated && userType === 1 && (
-                    <div className="enlaces-adicionales mt-3 d-flex justify-content-around bg-light border border-info rounded w-75 mx-auto">
-                        <div className="text-center d-flex flex-column align-items-center">
-                            <a className="icon-person fs-1 text-decoration-none" onClick={hanleTablaPropietarios}></a>
-                            <p className='text-info fs-4 mb-0' onClick={hanleTablaPropietarios}>Propietarios</p>
+                    <div
+                        className="enlaces-adicionales mt-3 d-flex  flex-column bg-light border border-info rounded w-75 mx-auto">
+                        <h3 className="text-center text-info">Gestión de coches</h3>
+                        <div className="d-flex flex-wrap justify-content-around mt-5">
+                            <div className="text-center d-flex flex-column align-items-center col-6 col-lg-auto mb-3">
+                                <a className="icon-person fs-1 text-decoration-none" onClick={hanleTablaPropietarios}></a>
+                                <p className="text-info fs-4 mb-0" onClick={hanleTablaPropietarios}>Propietarios</p>
+                            </div>
+                            <div className="text-center d-flex flex-column align-items-center col-6 col-lg-auto mb-3">
+                                <a className="icon-info fs-1 text-decoration-none" onClick={handleRegistroCompraVenta}></a>
+                                <p className="text-info fs-4 mb-0" onClick={handleRegistroCompraVenta}>Registro compra/venta</p>
+                            </div>
+                            <div className="text-center d-flex flex-column align-items-center col-6 col-lg-auto mb-3">
+                                <a className="icon-automobile fs-1 text-decoration-none" onClick={handleTablaCochesClick}></a>
+                                <p className="text-info fs-4 mb-0" onClick={handleTablaCochesClick}>Coches</p>
+                            </div>
+                            <div className="text-center d-flex flex-column align-items-center col-6 col-lg-auto mb-3">
+                                <a className="icon-cog fs-1 text-decoration-none" onClick={handleActualizarEstado}></a>
+                                <p className="text-info fs-4 mb-0" onClick={handleActualizarEstado}>Actualizar estado</p>
+                            </div>
                         </div>
-                        <div className="text-center d-flex flex-column align-items-center">
-                            <a className="icon-info fs-1 text-decoration-none" onClick={handleRegistroCompraVenta}></a>
-                            <p className='text-info fs-4 mb-0' onClick={handleRegistroCompraVenta}>Registro compra/venta</p>
+                        <div>
+                            <InformationSection></InformationSection>
                         </div>
-                        <div className="text-center d-flex flex-column align-items-center">
-                            <a className="icon-automobile fs-1 text-decoration-none" onClick={handleTablaCochesClick}></a>
-                            <p className='text-info fs-4 mb-0' onClick={handleTablaCochesClick}>Coches</p>
-                        </div>
+
                     </div>
+
                 )}
-                <InformationSection></InformationSection>
+                {isAuthenticated && userType === 4 && (
+                    <Information2></Information2>
+                )}
 
                 {/* Super root Content Section */}
                 {isAuthenticated ? (
@@ -258,21 +287,22 @@ export default function Home({ isAuthenticated, onLogout }) {
                         {userType === 3 ? (
                             <div
                                 className="registroEmpresaUser mt-5 p-5 bg-light border border-info rounded w-75 mx-auto">
-                                <h3 className="text-center text-info">Registrar empresa con usuario</h3>
-                                <button type="submit" className="btn btn-info w-100"
-                                        onClick={handleEmpresaRegisterClick}>Registrar
-                                </button>
-
+                                <h3 className="text-center text-info">Gestión de empresas</h3>
+                                <div className="container d-flex flex-column flex-lg-row justify-content-between mt-3">
+                                    <button type="submit" className="btn btn-info w-100 w-lg-50 mb-2 mb-lg-0 me-lg-2"
+                                            onClick={handleEmpresaRegisterClick}>Registrar empresa
+                                    </button>
+                                    <button type="submit" className="btn btn-info w-100 w-lg-50"
+                                            onClick={handleDarBajaEmpresa}>Dar de baja
+                                    </button>
+                                </div>
                             </div>
                         ) : null}
                     </>
                 ) : null}
 
             </main>
-            <footer className='mt-5'>
-                <PiePagina></PiePagina>
-            </footer>
-
+            <footer className='mt-5'><PiePagina></PiePagina></footer>
         </div>
     );
 }

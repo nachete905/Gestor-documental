@@ -6,6 +6,14 @@ use App\Models\Empresas;
 use App\Models\Instalaciones;
 use App\Models\Usuario;
 use App\Models\DaAlta;
+use App\Models\Coche;
+use App\Models\Compra;
+use App\Models\Venta;
+use App\Models\FotoCoche;
+use App\Models\DocumentacionCoche;
+use App\Models\DocumentacionPropietario;
+use App\Models\Propietario;
+use App\Models\CompraVenta;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -108,7 +116,6 @@ class AuthEmpresa extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Error al registrar la empresa.', ['error' => $e->getMessage()]);
 
             return response()->json([
                 'message' => 'Error al registrar la empresa',
@@ -116,4 +123,77 @@ class AuthEmpresa extends Controller
             ], 500);
         }
     }
+    public function eliminarEmpresa($id_empresa)
+    {
+        // Iniciar transacción para asegurar la integridad de la eliminación
+        DB::beginTransaction();
+
+        try {
+            // Primero obtenemos la empresa
+            $empresa = Empresas::findOrFail($id_empresa);
+
+            // Eliminar todas las instalaciones relacionadas con la empresa
+            $instalaciones = Instalaciones::where('id_empresa', $id_empresa)->get();
+
+            foreach ($instalaciones as $instalacion) {
+                // Eliminar todos los coches relacionados con la instalación
+                $coches = Coche::where('id_instalacion', $instalacion->id_instalacion)->get();
+
+                foreach ($coches as $coche) {
+                    // Eliminar fotos del coche
+                    FotoCoche::where('matricula', $coche->matricula)->delete();
+
+                    // Eliminar la documentacion del coche
+                    DocumentacionCoche::where('id_documentacion', $coche->id_documentacionCoche)->delete();
+
+                    // Eliminar la compra y venta asociada al coche
+                    CompraVenta::where('matricula', $coche->matricula)->delete();
+
+                    // Eliminar propietarios relacionados con el coche
+                    Propietario::where('matricula', $coche->matricula)->delete();
+                }
+
+                // Eliminar todos los DaAlta relacionados con la instalación
+                DaAlta::where('id_instalacion', $instalacion->id_instalacion)->delete();
+
+                // Eliminar todos los coches relacionados con la instalación
+                Coche::where('id_instalacion', $instalacion->id_instalacion)->delete();
+
+                // Eliminar la instalación
+                $instalacion->delete();
+            }
+
+            // Eliminar la empresa (relación de uno a muchos con Instalaciones, etc.)
+            $empresa->delete();
+
+            // Confirmar la transacción
+            DB::commit();
+            return response()->json(['message' => 'Empresa y todos los registros asociados han sido eliminados correctamente.']);
+        } catch (\Exception $e) {
+            // En caso de error, revertir la transacción
+            DB::rollback();
+            return response()->json(['message' => 'Error al eliminar la empresa: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function mostrarEmpresas(){
+        try {
+            // Obtener el id y nombre de las empresas
+            $empresas = Empresas::pluck('nombreEmpresa', 'id_empresa');
+
+            // Mapear los resultados a la estructura deseada
+            $empresasTransformadas = $empresas->map(function ($nombre, $id) {
+                return [
+                    'nombre' => $nombre,
+                    'id' => $id
+                ];
+            });
+
+            // Devolver la respuesta en formato JSON
+            return response()->json($empresasTransformadas);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al mostrar las empresas'], 400);
+        }
+    }
+
 }

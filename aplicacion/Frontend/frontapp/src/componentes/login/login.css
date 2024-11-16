@@ -1,4 +1,4 @@
-body {
+.containerLogin {
     background: linear-gradient(to bottom, #2c2c2c, #2b6c8e);
     min-height: 100vh;
     display: flex;

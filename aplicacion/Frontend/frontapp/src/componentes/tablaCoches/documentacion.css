@@ -1,16 +1,22 @@
 /* Documentacion.css */
+.doc-container {
+    min-height: 140vh;
+    background-color: #4a90e2;
+    padding: 20px; /* Añadir padding para darle espacio en los bordes */
+}
 
-/* Estilo general para el contenedor principal */
+/* Contenedor principal con margen y padding */
 .tituloDocumentacion {
     margin-bottom: 30px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    color: #f9f9f9;
+    background-color: #2c3e50; /* Fondo oscuro */
+    color: #f9f9f9; /* Texto claro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
 }
 
-
-
+/* Estilo de la lista dentro del contenedor principal */
 .tituloDocumentacion ul {
     list-style: none;
     padding: 0;
@@ -19,35 +25,69 @@
 .tituloDocumentacion ul li {
     margin-bottom: 10px;
     font-size: 16px;
-
+    color: #ecf0f1; /* Texto claro */
 }
 
-
+/* Contenedor de la documentación con margen y padding */
 .containerDocumentacion {
     margin-top: 20px;
+    background-color: #34495e; /* Fondo oscuro */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+    color: #ecf0f1; /* Texto claro */
+    max-width: 100%; /* Asegurar que no se salga de la pantalla */
 }
 
+/* Título dentro del contenedor de documentación */
 .containerDocumentacion h3 {
     margin-bottom: 15px;
-
+    color: #f1c40f; /* Texto amarillo */
 }
 
-
+/* Estilo de cada sección de fotos de documentación */
 .containerDocumentacion div {
     cursor: pointer;
     border: 2px solid transparent;
     border-radius: 10px;
     transition: transform 0.2s, border-color 0.2s;
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 10px;
+    max-width: 100%;
 }
 
+/* Efecto hover */
 .containerDocumentacion div:hover {
     transform: scale(1.02);
-
+    border-color: #3498db;
 }
 
-
+/* Estilo de las imágenes */
 .containerDocumentacion img {
-    max-width: 200px;
+    max-width: 100%;
     max-height: 200px;
-    border-radius: 8px; /* Bordes redondeados */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo del modal */
+.modales .modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.modales .modal-header {
+    background-color: #3498db;
+    color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.modales .modal-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.modales .modal-footer {
+    border-top: 1px solid #ddd;
 }

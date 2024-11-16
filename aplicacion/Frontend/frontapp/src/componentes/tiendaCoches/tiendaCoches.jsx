@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './TiendaCoches.css';
 import { useNavigate } from 'react-router-dom';
+import BarraNavegacion from "../barraNavegacion/BarraNavegacion";
 
 // Función para obtener la URL completa de la foto
 const getPhotoUrl = (photoPath) => {
@@ -16,8 +17,17 @@ export default function TiendaCoches() {
     const [error, setError] = useState(null);
     const [empresaId, setEmpresaId] = useState(null);
     const [estadoCoches, setEstadoCoches] = useState([]);
+    const [dots, setDots] = useState(0);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setDots((prevDots) => (prevDots + 1) % 4);
+        }, 300);
+        return () => clearInterval(interval); // Limpiar intervalo al desmontar
+    }, []);
+
+    const puntosAnimados = ".".repeat(dots);
     useEffect(() => {
         // Primera petición para obtener los datos del usuario
         fetch('http://localhost:8000/api/getUserData', {
@@ -78,7 +88,17 @@ export default function TiendaCoches() {
     const cochesDisponibles = coches.filter(coche => estadoCoches.includes(coche.estado) && coche.estado === "disponible");
 
     if (loading) {
-        return <div className="text-center mt-5 fs-2 bg-dark text-white rounded p-3">Cargando coches...</div>;
+        return (
+            <div className="containerTienda d-flex vh-100 align-items-center justify-content-center">
+                <div className="text-center fs-2 bg-dark text-white rounded p-3">
+                    <div className="loading-circle">
+                        <div>
+                            Cargando<span>{puntosAnimados}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     if (error) {
@@ -90,12 +110,13 @@ export default function TiendaCoches() {
     };
 
     return (
-        <div className="container mt-5 mb-5">
-            <h2 className="text-center mb-4">Gestión de los coches</h2>
-            <div className="row">
+        <div className="containerTienda mb-5">
+            <BarraNavegacion></BarraNavegacion>
+            <h2 className="text-center mb-4 mt-5 text-light">Gestión de los coches</h2>
+            <div className="rowTienda">
                 {cochesDisponibles.map(coche => (
-                    <div key={coche.matricula} className="col-md-4 mb-4">
-                        <div className="card h-100 tienda-card border border-4 border-dark">
+                    <div key={coche.matricula} className="carta col-md-4 mb-4">
+                        <div className="card h-100 tienda-card border border-4 border-dark bg-dark">
                             <div id={`carousel-${coche.matricula}`} className="carousel slide" data-bs-ride="carousel">
                                 <div className="carousel-inner">
                                     {coche.fotos.map((foto, index) => (

@@ -194,210 +194,102 @@ const RegistroVenta = () => {
     }
 
     return (
-        <div className="container d-flex justify-content-center align-items-center">
-            <div className="registro-container w-100">
-                <div className="registro-left">
-                    <img src={photo} alt="Logo" className="registro-logo"/>
+        <div className="containerRegistro d-flex justify-content-center align-items-center vh-100">
+            <div className="registro-container d-flex flex-column flex-lg-row w-75">
+                <div className="registro-left text-center text-lg-start">
+                    <img src={photo} alt="Logo" className="registro-logo mx-auto mx-lg-0" />
                     <h2 className="text-center text-light mt-4">Registro de venta</h2>
                 </div>
-                <div className="registro-right">
+                <div className="registro-right w-100 mt-4 mt-lg-0">
                     {step === 1 && (
                         <div className="p-4 rounded border border-info">
-                            <h2 className="text-center text-light mb-4">
-                                Datos del Propietario
-                            </h2>
-                            <form method="POST">
-                                <div className="mb-3">
-                                    <label className="form-label">Nombre:</label>
-                                    <input
-                                        type="text"
-                                        id='nombre'
-                                        name="nombre"
-                                        className="form-label"
-                                        value={propietarioData.nombre}
-                                        onChange={handlePropietarioChange}
-                                        onBlur={validarNombre}
-                                    />
-                                    <span id="nombre-error" className="text-danger" style={{display: 'none'}}>
-                                        El nombre no está bien escrito.
-                                    </span>
+                            <h2 className="text-center text-light mb-4">Datos del Propietario</h2>
+                            <form method="POST" className="d-flex flex-column align-items-center w-100">
+                                <div className="mb-3 w-100">
+                                    <label htmlFor="nombre" className="form-label">Nombre:</label>
+                                    <input type="text" id="nombre" name="nombre" className="form-control" placeholder="Nombre" value={propietarioData.nombre} onChange={handlePropietarioChange} onBlur={validarNombre} />
+                                    <span id="nombre-error" className="text-danger" style={{ display: 'none' }}>
+                                    El nombre no está bien escrito.
+                                </span>
                                 </div>
-                                <div className="mb-3">
-                                    <label className="form-label">Apellido:</label>
-                                    <input
-                                        type="text"
-                                        name="apellido"
-                                        id='apellido'
-                                        className="form-label"
-                                        value={propietarioData.apellido}
-                                        onChange={handlePropietarioChange}
-                                        onBlur={validarApellido}
-                                    />
-                                    <span id="apellido-error" className="text-danger" style={{display: 'none'}}>
-                                        El apellido no está bien escrito.
-                                    </span>
+                                <div className="mb-3 w-100">
+                                    <label htmlFor="apellido" className="form-label">Apellido:</label>
+                                    <input type="text" id="apellido" name="apellido" className="form-control" placeholder="Apellido" value={propietarioData.apellido} onChange={handlePropietarioChange} onBlur={validarApellido} />
+                                    <span id="apellido-error" className="text-danger" style={{ display: 'none' }}>
+                                    El apellido no está bien escrito.
+                                </span>
                                 </div>
-                                <div className="mb-3">
-                                    <label className="form-label">Email:</label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        id='email'
-                                        className="form-label"
-                                        value={propietarioData.email}
-                                        onChange={handlePropietarioChange}
-                                        onBlur={validarEmail}
-                                    />
-                                    <span id="email-error" className="text-danger" style={{display: 'none'}}>
-                                        El Email no está bien escrito.
-                                    </span>
+                                <div className="mb-3 w-100">
+                                    <label htmlFor="email" className="form-label">Email:</label>
+                                    <input type="email" id="email" name="email" className="form-control" placeholder="Email" value={propietarioData.email} onChange={handlePropietarioChange} onBlur={validarEmail} />
+                                    <span id="email-error" className="text-danger" style={{ display: 'none' }}>
+                                    El Email no está bien escrito.
+                                </span>
                                 </div>
-                                <div className="mb-3">
-                                    <label className="form-label">Teléfono:</label>
-                                    <input
-                                        type="text"
-                                        name="telefono"
-                                        id='telefono'
-                                        className="form-label"
-                                        value={propietarioData.telefono}
-                                        onChange={handlePropietarioChange}
-                                        onBlur={validarTelefono}
-                                    />
-                                    <span id="telefono-error" className="text-danger" style={{display: 'none'}}>
-                                        El teléfono no está bien escrito.
-                                    </span>
+                                <div className="mb-3 w-100">
+                                    <label htmlFor="telefono" className="form-label">Teléfono:</label>
+                                    <input type="text" id="telefono" name="telefono" className="form-control" placeholder="Teléfono" value={propietarioData.telefono} onChange={handlePropietarioChange} onBlur={validarTelefono} />
+                                    <span id="telefono-error" className="text-danger" style={{ display: 'none' }}>
+                                    El teléfono no está bien escrito.
+                                </span>
                                 </div>
                                 <div className="text-center">
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary me-2"
-                                        onClick={handleNextStep}
-                                    >
-                                        Siguiente
-                                    </button>
+                                    <button type="button" className="btn btn-primary me-2" onClick={handleNextStep}>Siguiente</button>
                                 </div>
                             </form>
                         </div>
                     )}
                     {step === 2 && (
                         <div className="p-4 rounded border border-info">
-                            <h2>Datos del comprador</h2>
-                            <form method="POST" onSubmit={submitForm}>
-                                <div className="mb-3">
-                                    <label className="form-label">Nominas (Archivo):</label>
-                                    <input
-                                        type="file"
-                                        name="nominas"
-                                        id='fotoNomina'
-                                        className="form-label"
-                                        onChange={handleDocumentacionChange}
-                                        onBlur={validarFotos}
-                                    />
-                                    <span id="foto1-error" className="text-danger" style={{display: 'none'}}>
-                                       No puede estar vacío.
-                                    </span>
+                            <h2 className="text-center text-light mb-4">Datos del comprador</h2>
+                            <form method="POST" onSubmit={submitForm} className="d-flex flex-column align-items-center w-100">
+                                <div className="mb-3 w-100">
+                                    <label htmlFor="nominas" className="form-label">Nóminas (Archivo):</label>
+                                    <input type="file" id="nominas" name="nominas" className="form-control" onChange={handleDocumentacionChange} onBlur={validarFotos} />
+                                    <span id="foto1-error" className="text-danger" style={{ display: 'none' }}>No puede estar vacío.</span>
                                 </div>
-                                <div className="mb-3">
-                                    <label className="form-label">Carnet (Archivo):</label>
-                                    <input
-                                        type="file"
-                                        name="carnet"
-                                        id='fotoCarnet'
-                                        className="form-label"
-                                        onChange={handleDocumentacionChange}
-                                        onBlur={validarFotos}
-                                    />
-                                    <span id="foto2-error" className="text-danger" style={{display: 'none'}}>
-                                       No puede estar vacío.
-                                    </span>
+                                <div className="mb-3 w-100">
+                                    <label htmlFor="carnet" className="form-label">Carnet (Archivo):</label>
+                                    <input type="file" id="carnet" name="carnet" className="form-control" onChange={handleDocumentacionChange} onBlur={validarFotos} />
+                                    <span id="foto2-error" className="text-danger" style={{ display: 'none' }}>No puede estar vacío.</span>
                                 </div>
-                                <div className="mb-3">
-                                    <label className="form-label">DNI:</label>
-                                    <input
-                                        type="text"
-                                        name="DNI"
-                                        id='dni'
-                                        className="form-label"
-                                        value={documentacionData.DNI || ""}
-                                        onChange={handleDocumentacionChange}
-                                        onBlur={validarDNI}
-                                    />
-                                    <span id="dni-error" className="text-danger" style={{display: 'none'}}>
-                                        El DNI no es válido.
-                                    </span>
+                                <div className="mb-3 w-100">
+                                    <label htmlFor="dni" className="form-label">DNI:</label>
+                                    <input type="text" id="dni" name="DNI" className="form-control" placeholder="DNI" value={documentacionData.DNI} onChange={handleDocumentacionChange} onBlur={validarDNI} />
+                                    <span id="dni-error" className="text-danger" style={{ display: 'none' }}>El DNI no es válido.</span>
                                 </div>
-                                <div className="mb-3">
-                                    <label className="form-label">Coche:</label>
-                                    <select
-                                        name="coche"
-                                        id='coche'
-                                        className="form-label"
-                                        value={propietarioData.coche}
-                                        onChange={handleCocheChange}
-                                    >
+                                <div className="mb-3 w-100">
+                                    <label htmlFor="coche" className="form-label">Coche:</label>
+                                    <select id="coche" name="coche" className="form-control" value={propietarioData.coche} onChange={handleCocheChange}>
                                         <option value="">--Seleccione un coche--</option>
                                         {coches.map((coche) => (
-                                            <option key={coche.matricula} className="text-dark"
-                                                    value={coche.marca_modelo}>
+                                            <option key={coche.matricula} className="text-dark" value={coche.marca_modelo}>
                                                 {`${coche.marca} ${coche.modelo}`}
                                             </option>
                                         ))}
                                     </select>
-                                    <span id="coche-error" className="text-danger" style={{display: 'none'}}>
-                                        El coche no puede estar vacío.
-                                    </span>
+                                    <span id="coche-error" className="text-danger" style={{ display: 'none' }}>El coche no puede estar vacío.</span>
                                 </div>
-                                <div className="mb-3">
-                                    <label className="form-label">Matrícula:</label>
-                                    <input
-                                        type="text"
-                                        name="matricula"
-                                        id='matricula'
-                                        className="form-label"
-                                        value={propietarioData.matricula}
-                                        readOnly
-                                        onBlur={validarMatricula}
-                                    />
-                                    <span id="matricula-error" className="text-danger" style={{display: 'none'}}>
-                                       La matrícula no está bien escrita.
-                                    </span>
+                                <div className="mb-3 w-100">
+                                    <label htmlFor="matricula" className="form-label">Matrícula:</label>
+                                    <input type="text" id="matricula" name="matricula" className="form-control" placeholder="Matrícula" value={propietarioData.matricula} readOnly onBlur={validarMatricula} />
+                                    <span id="matricula-error" className="text-danger" style={{ display: 'none' }}>La matrícula no está bien escrita.</span>
                                 </div>
-                                <div className="mb-3">
-                                    <label className="form-label">Vendedor:</label>
-                                    <select
-                                        name="vendedor"
-                                        id='vendedor'
-                                        className="form-label"
-                                        value={propietarioData.vendedor}
-                                        onChange={handlePropietarioChange}
-                                        onBlur={validarVendedor}
-                                    >
+                                <div className="mb-3 w-100">
+                                    <label htmlFor="vendedor" className="form-label">Vendedor:</label>
+                                    <select id="vendedor" name="vendedor" className="form-control" value={propietarioData.vendedor} onChange={handlePropietarioChange} onBlur={validarVendedor}>
                                         <option value="">--Seleccione un vendedor--</option>
                                         {usuarios.map((usuario) => (
-                                            <option
-                                                key={usuario.id_usuario}
-                                                className="text-dark"
-                                                value={usuario.id_usuario} // Se mantiene como string, se convierte en entero en el manejador
-                                            >
+                                            <option key={usuario.id_usuario} className="text-dark" value={usuario.id_usuario}>
                                                 {`${usuario.nombre} ${usuario.apellido}`}
                                             </option>
                                         ))}
                                     </select>
-                                    <span id="vendedor-error" className="text-danger" style={{display: 'none'}}>
-                                       La matrícula no está bien escrita.
-                                    </span>
+                                    <span id="vendedor-error" className="text-danger" style={{ display: 'none' }}>El vendedor no está bien escrito.</span>
                                 </div>
-                                <div className="text-center d-flex justify-content-between">
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary me-2"
-                                        onClick={handlePrevStep}
-                                    >
-                                        Atrás
-                                    </button>
-                                    <button type="submit" className="btn btn-primary">
-                                        Enviar
-                                    </button>
+                                <div className="text-center d-flex justify-content-between w-100">
+                                    <button type="button" className="btn btn-primary me-2" onClick={handlePrevStep}>Atrás</button>
+                                    <button type="submit" className="btn btn-primary">Enviar</button>
                                 </div>
                             </form>
                         </div>
@@ -406,6 +298,7 @@ const RegistroVenta = () => {
             </div>
         </div>
     );
+
 };
 
 export default RegistroVenta;

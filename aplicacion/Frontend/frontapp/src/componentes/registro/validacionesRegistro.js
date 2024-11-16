@@ -236,8 +236,85 @@ export function validarVendedor(){
         return true;
     }
 }
+export function validarCIF(){
+    let cif = document.getElementById('CIF');
+    let errorCIF = document.getElementById('cif-error');
+    let cifINPUT = cif.value;
+    let regex = /^[ABCDEFGHJNPQRSUVW]\d{7}[0-9A-J]$/;
 
+    if(regex.test(cifINPUT)){
+        cif.style.border = "";
+        errorCIF.style.display = 'none';
+        return true;
+    }else {
+        cif.style.border = "2px solid red";
+        errorCIF.style.display = 'block';
+        return false;
+    }
+}
 
+export function validarInstalaciones(){
+    let instalaciones = document.getElementById('instalacionesCount');
+    let instalacionesInput = instalaciones.value;
+    let errorInstalaciones = document.getElementById('instalaiones-error');
+    let boton = document.getElementById('next');
 
+    if(isNaN(instalacionesInput) || instalacionesInput > 0){
+        instalaciones.style.border = '';
+        errorInstalaciones.style.display = 'none';
+        boton.disabled = false;
+        return true;
+    }else{
+        instalaciones.style.border = '2px solid red';
+        errorInstalaciones.style.display = 'block';
+        boton.disabled = true;
+        return false;
+    }
+}
+export function validarUbicacion(index) {
+    let ubicacionInput = document.getElementById(`ubicacion_${index}`);
+    let ubicacionValue = ubicacionInput.value; const ubicacionError = ubicacionInput.nextElementSibling;
+
+    const regex = /^(calle|c|C\/)\s?[a-zA-ZÁ-Úá-ú0-9\s,'-]+\s\d+$/;
+     if (!regex.test(ubicacionValue)) {
+         ubicacionInput.style.border = "2px solid red";
+         ubicacionError.style.display = 'block';
+         return false;
+     } else {
+         ubicacionInput.style.border = "";
+         ubicacionError.style.display = 'none';
+         return true;
+     }
+}
+export function validarLocalidad(index) {
+    let localidadInput = document.getElementById(`localidad_${index}`);
+    let localidadValue = localidadInput.value; const localidadError = localidadInput.nextElementSibling;
+    let regex = /^[a-zA-ZÁ-Úá-ú\s]+$/;
+
+    if (!regex.test(localidadValue)) {
+        localidadInput.style.border = "2px solid red";
+        localidadError.style.display = 'block';
+        return false;
+    } else {
+        localidadInput.style.border = "";
+        localidadError.style.display = 'none';
+        return true;
+    }
+}
+export function validarTelefonoInstalacion(index) {
+    let telefonoInput = document.getElementById(`telefono_${index}`);
+    let telefonoValue = telefonoInput.value;
+    let telefonoError = telefonoInput.nextElementSibling;
+    let regex = /^(?:\+?\d{1,3}[-.\s]?)?(?:\d{9}|\(\d{3}\)\s?\d{3}[-.\s]?\d{4}|\d{3}[-.\s]?\d{3}[-.\s]?\d{4})$/;
+
+    if (!regex.test(telefonoValue)) {
+        telefonoInput.style.border = "2px solid red";
+        telefonoError.style.display = 'block';
+        return false;
+    } else { telefonoInput.style.border = "";
+        telefonoError.style.display = 'none';
+        return true;
+    }
+}
 
 

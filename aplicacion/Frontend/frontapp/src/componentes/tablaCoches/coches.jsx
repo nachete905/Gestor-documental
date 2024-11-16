@@ -4,6 +4,7 @@ import jsPDF from "jspdf";
 import 'jspdf-autotable';
 import "./coches.css";
 import { useNavigate } from 'react-router-dom';
+import BarraNavegacion from "../barraNavegacion/BarraNavegacion";
 export default function Coches() {
     const [coches, setCoches] = useState([]);
     const [busqueda, setBusqueda] = useState(""); // Estado para la búsqueda
@@ -141,10 +142,12 @@ export default function Coches() {
     // Si está cargando, mostrar la animación con puntos
     if (loading) {
         return (
-            <div className="text-center mt-5 fs-2 bg-dark text-white rounded p-3">
-                <div className="loading-circle">
-                    <div>
-                        Cargando<span>{puntosAnimados}</span>
+            <div className="tabla d-flex vh-100 align-items-center justify-content-center">
+                <div className="text-center fs-2 bg-dark text-white rounded p-3">
+                    <div className="loading-circle">
+                        <div>
+                            Cargando<span>{puntosAnimados}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -158,6 +161,7 @@ export default function Coches() {
 
     return (
         <div className="tabla">
+            <BarraNavegacion></BarraNavegacion>
             <h2 className='text-light text-center'>Lista de Coches</h2>
             <div className='container d-none d-lg-block'>
                 <form onSubmit={handleSubmit} className="mb-3">

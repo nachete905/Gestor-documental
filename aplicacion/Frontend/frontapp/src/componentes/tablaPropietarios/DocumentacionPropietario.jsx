@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../tablaCoches/documentacion.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import BarraNavegacion from "../barraNavegacion/BarraNavegacion";
 
 
 const getPhotoUrl = (photoPath) => {
@@ -73,64 +74,76 @@ function DocumentacionPropietario(){
     const tieneDocumentacion = documentacion.documentacion && (documentacion.documentacion.nominas || documentacion.documentacion.carnet);
 
     return (
-        <div>
-            <div id="pdf-content">
-                <div className='tituloDocumentacion'>
-                    <h2>Documentación del propietario: {DNI}</h2>
-                    <ul>
-                        <li>Nombre: {documentacion.nombre}</li>
-                        <li>Apellido: {documentacion.apellido}</li>
-                        <li>Email: {documentacion.email}</li>
-                    </ul>
-                </div>
-                {/* Nueva sección para mostrar el mensaje si no hay documentación */}
-                <div className='containerDocumentacion'>
-                    <h3>Fotos de Documentación:</h3>
-                    {!tieneDocumentacion ? (
-                        <h2 className='text-light'>No tiene documentación</h2> // Mensaje si no hay documentación
-                    ) : (
-                        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                            {documentacion.documentacion.nominas && (
-                                <div onClick={() => openModal(fotoNominas)} style={{ cursor: 'pointer' }}>
-                                    <h4>Nómina</h4>
-                                    <img src={getPhotoUrl(documentacion.documentacion.nominas)} alt="Nómina" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                                </div>
-                            )}
-                            {documentacion.documentacion.carnet && (
-                                <div onClick={() => openModal(fotoCarnet)} style={{ cursor: 'pointer' }}>
-                                    <h4>Carnet de conducir</h4>
-                                    <img src={getPhotoUrl(documentacion.documentacion.carnet)} alt="Carnet" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                                </div>
-                            )}
+        <div >
+            <BarraNavegacion></BarraNavegacion>
+            <div className="d-flex justify-content-center align-items-center vh-100"
+                 style={{backgroundColor: '#4a90e2'}}>
+                <div className='mt-5'>
+                    <div id="pdf-content">
+                        <div className='tituloDocumentacion text-center'>
+                            <h2 className='text-light'>Documentación del propietario: {DNI}</h2>
+                            <ul className="list-unstyled text-light">
+                                <li>Nombre: {documentacion.nombre}</li>
+                                <li>Apellido: {documentacion.apellido}</li>
+                                <li>Email: {documentacion.email}</li>
+                            </ul>
                         </div>
-                    )}
-                </div>
-            </div>
-            <div className='modales'>
-                {/* Modal de Bootstrap para mostrar la imagen ampliada */}
-                {modalImageUrl && (
-                    <div className="modal fade show" style={{ display: 'block' }} onClick={closeModal}>
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Imagen Ampliada</h5>
-                                    <button type="button" className="btn-close" onClick={closeModal}></button>
+                        {/* Nueva sección para mostrar el mensaje si no hay documentación */}
+                        <div className='containerDocumentacion'>
+                            <h3 className="text-light">Fotos de Documentación:</h3>
+                            {!tieneDocumentacion ? (
+                                <h2 className='text-light'>No tiene documentación</h2> // Mensaje si no hay documentación
+                            ) : (
+                                <div className="d-flex flex-wrap justify-content-center gap-3">
+                                    {documentacion.documentacion.nominas && (
+                                        <div className='text-dark text-center' onClick={() => openModal(fotoNominas)}
+                                             style={{cursor: 'pointer'}}>
+                                            <h4>Nómina</h4>
+                                            <img src={getPhotoUrl(documentacion.documentacion.nominas)}
+                                                 alt="Nómina" style={{maxWidth: '200px', maxHeight: '200px'}}/>
+                                        </div>
+                                    )}
+                                    {documentacion.documentacion.carnet && (
+                                        <div className='text-dark text-center' onClick={() => openModal(fotoCarnet)}
+                                             style={{cursor: 'pointer'}}>
+                                            <h4>Carnet de conducir</h4>
+                                            <img src={getPhotoUrl(documentacion.documentacion.carnet)}
+                                                 alt="Carnet" style={{maxWidth: '200px', maxHeight: '200px'}}/>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="modal-body">
-                                    <img src={modalImageUrl} alt="Imagen Ampliada" style={{ width: '100%' }} />
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" onClick={closeModal}>
-                                        Cerrar
-                                    </button>
-                                </div>
-                            </div>
+                            )}
                         </div>
                     </div>
-                )}
+                    <div className='modales'>
+                        {/* Modal de Bootstrap para mostrar la imagen ampliada */}
+                        {modalImageUrl && (
+                            <div className="modal fade show" style={{display: 'block'}} onClick={closeModal}>
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title">Imagen Ampliada</h5>
+                                            <button type="button" className="btn-close" onClick={closeModal}></button>
+                                        </div>
+                                        <div className="modal-body">
+                                            <img src={modalImageUrl} alt="Imagen Ampliada" style={{width: '100%'}}/>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" onClick={closeModal}>
+                                                Cerrar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
+
         </div>
     );
+
 }
 
 

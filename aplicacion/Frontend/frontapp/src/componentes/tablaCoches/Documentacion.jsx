@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './documentacion.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
+import BarraNavegacion from "../barraNavegacion/BarraNavegacion";
 
 const getPhotoUrl = (photoPath) => {
     const url = `http://localhost:8000/${photoPath}`;
@@ -72,72 +71,106 @@ function Documentacion() {
 
     return (
         <div>
-            <div id="pdf-content"> {/* Contenedor para html2canvas */}
-                <div className='tituloDocumentacion'>
-                    <h2>Documentación del Coche con Matrícula: {matricula}</h2>
-                    <ul>
-                        <li>Coche: {documentacion.coche}</li>
-                        <li>Año de Matriculación: {documentacion.año_matriculacion.split('T')[0]}</li>
-                        <li>Fecha de Documentación: {documentacion.documentacion.fecha_documentacion}</li>
-                    </ul>
-                </div>
-                {/* Nueva sección para mostrar las fotos */}
-                <div className='containerDocumentacion'>
-                    <h3>Fotos de Documentación:</h3>
-                    <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                        {documentacion.documentacion.permiso_circulacion && (
-                            <div onClick={() => openModal(fotoPermisoCirculacion)}
-                                 style={{ cursor: 'pointer' }}>
-                                <h4>Permiso de Circulación</h4>
-                                <img src={getPhotoUrl(documentacion.documentacion.permiso_circulacion)}
-                                     alt="Permiso de Circulación" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                            </div>
-                        )}
-                        {documentacion.documentacion.ficha_tecnica && (
-                            <div onClick={() => openModal(fotoFichaTecnica)}
-                                 style={{ cursor: 'pointer' }}>
-                                <h4>Ficha Técnica</h4>
-                                <img src={getPhotoUrl(documentacion.documentacion.ficha_tecnica)}
-                                     alt="Ficha Técnica" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                            </div>
-                        )}
-                        {documentacion.documentacion.ficha_verde && (
-                            <div onClick={() => openModal(fotoFichaVerde)}
-                                 style={{ cursor: 'pointer' }}>
-                                <h4>Ficha Verde</h4>
-                                <img src={getPhotoUrl(documentacion.documentacion.ficha_verde)}
-                                     alt="Ficha Verde" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
-            <div className='modales'>
-                {/* Modal de Bootstrap para mostrar la imagen ampliada */}
-                {modalImageUrl && (
-                    <div className="modal fade show" style={{ display: 'block' }} onClick={closeModal}>
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Imagen Ampliada</h5>
-                                    <button type="button" className="btn-close" onClick={closeModal}></button>
-                                </div>
-                                <div className="modal-body">
-                                    <img src={modalImageUrl} alt="Imagen Ampliada" style={{ width: '100%' }} />
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" onClick={closeModal}>
-                                        Cerrar
-                                    </button>
-                                </div>
+            <BarraNavegacion />
+            <div className="doc-container d-flex justify-content-center align-items-center vh-100">
+                <div className='mt-5'>
+                    {/* Contenido visible solo en pantallas medianas (md) hacia abajo */}
+                    <div id="pdf-content-md" className="container d-lg-none d-md-block">
+                        <div className='tituloDocumentacion text-center'>
+                            <h2 className='text-light'>Documentación del Coche</h2>
+                            <ul className="list-unstyled">
+                                <li>Coche: Renault Espace Initiale Paris</li>
+                                <li>Año de Matriculación: 2018-09-10</li>
+                                <li>Fecha de Documentación: 2024-10-02</li>
+                            </ul>
+                        </div>
+                        <div className='containerDocumentacion'>
+                            <h3>Fotos de Documentación:</h3>
+                            <div className="row justify-content-center">
+                                {documentacion.documentacion.permiso_circulacion && (
+                                    <div className='col-12 col-md-6 text-dark mb-3' onClick={() => openModal(fotoPermisoCirculacion)} style={{cursor: 'pointer'}}>
+                                        <h4 className="text-center">Permiso de Circulación</h4>
+                                        <img src={getPhotoUrl(documentacion.documentacion.permiso_circulacion)} alt="Permiso de Circulación" className="img-fluid"/>
+                                    </div>
+                                )}
+                                {documentacion.documentacion.ficha_tecnica && (
+                                    <div className='col-12 col-md-6 text-dark mb-3' onClick={() => openModal(fotoFichaTecnica)} style={{cursor: 'pointer'}}>
+                                        <h4 className="text-center">Ficha Técnica</h4>
+                                        <img src={getPhotoUrl(documentacion.documentacion.ficha_tecnica)} alt="Ficha Técnica" className="img-fluid"/>
+                                    </div>
+                                )}
+                                {documentacion.documentacion.ficha_verde && (
+                                    <div className='col-12 col-md-6 text-dark mb-3' onClick={() => openModal(fotoFichaVerde)} style={{cursor: 'pointer'}}>
+                                        <h4 className="text-center">Ficha Verde</h4>
+                                        <img src={getPhotoUrl(documentacion.documentacion.ficha_verde)} alt="Ficha Verde" className="img-fluid"/>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
-                )}
-            </div>
 
+                    {/* Contenido visible solo en pantallas grandes (lg) hacia arriba */}
+                    <div id="pdf-content-lg" className="container d-none d-lg-block">
+                        <div className='tituloDocumentacion text-center'>
+                            <h2 className='text-light'>Documentación del Coche</h2>
+                            <ul className="list-unstyled">
+                                <li>Coche: Renault Espace Initiale Paris</li>
+                                <li>Año de Matriculación: 2018-09-10</li>
+                                <li>Fecha de Documentación: 2024-10-02</li>
+                            </ul>
+                        </div>
+                        <div className='containerDocumentacion'>
+                            <h3>Fotos de Documentación:</h3>
+                            <div className="d-flex flex-wrap justify-content-center gap-3">
+                                {documentacion.documentacion.permiso_circulacion && (
+                                    <div className='text-dark' onClick={() => openModal(fotoPermisoCirculacion)} style={{cursor: 'pointer'}}>
+                                        <h4 className="text-center">Permiso de Circulación</h4>
+                                        <img src={getPhotoUrl(documentacion.documentacion.permiso_circulacion)} alt="Permiso de Circulación" style={{maxWidth: '200px', maxHeight: '200px'}}/>
+                                    </div>
+                                )}
+                                {documentacion.documentacion.ficha_tecnica && (
+                                    <div className='text-dark' onClick={() => openModal(fotoFichaTecnica)} style={{cursor: 'pointer'}}>
+                                        <h4 className="text-center">Ficha Técnica</h4>
+                                        <img src={getPhotoUrl(documentacion.documentacion.ficha_tecnica)} alt="Ficha Técnica" style={{maxWidth: '200px', maxHeight: '200px'}}/>
+                                    </div>
+                                )}
+                                {documentacion.documentacion.ficha_verde && (
+                                    <div className='text-dark' onClick={() => openModal(fotoFichaVerde)} style={{cursor: 'pointer'}}>
+                                        <h4 className="text-center">Ficha Verde</h4>
+                                        <img src={getPhotoUrl(documentacion.documentacion.ficha_verde)} alt="Ficha Verde" style={{maxWidth: '200px', maxHeight: '200px'}}/>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='modales'>
+                        {/* Modal de Bootstrap para mostrar la imagen ampliada */}
+                        {modalImageUrl && (
+                            <div className="modal fade show" style={{display: 'block'}} onClick={closeModal}>
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title">Imagen Ampliada</h5>
+                                            <button type="button" className="btn-close" onClick={closeModal}></button>
+                                        </div>
+                                        <div className="modal-body">
+                                            <img src={modalImageUrl} alt="Imagen Ampliada" style={{width: '100%'}}/>
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" onClick={closeModal}>Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
         </div>
     );
+
+
 }
 
 export default Documentacion;

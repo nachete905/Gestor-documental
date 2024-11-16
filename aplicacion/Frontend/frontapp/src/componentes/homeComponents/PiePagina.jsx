@@ -21,10 +21,8 @@ export default function PiePagina() {
                 <div className="col-md-4 mb-2">
                     <h6 className="small">Enlaces útiles</h6>
                     <ul className="list-unstyled small">
-                        <li><a href="#a-que-nos-dedicamos" className="text-light">A qué nos dedicamos</a></li>
+                        <li><a href="#acerca-de-section" className="text-light">A qué nos dedicamos</a></li>
                         <li><a href="#coches-a-la-venta" className="text-light">Ver coches a la venta</a></li>
-                        <li><a href="#buscar-coches" className="text-light">Buscar coches</a></li>
-                        <li><a href="#como-funcionamos" className="text-light">Cómo funcionamos</a></li>
                     </ul>
                 </div>
 
@@ -32,9 +30,8 @@ export default function PiePagina() {
                 <div className="col-md-4 mb-2">
                     <h6 className="small">Contacto</h6>
                     <ul className="list-unstyled small">
-                        <li><a href="mailto:contacto@tuempresa.com" className="text-light">contacto@tuempresa.com</a></li>
-                        <li><a href="tel:+123456789" className="text-light">+1 (234) 567-89</a></li>
-                        <li><a href="#chat" className="text-light" onClick={handleChat}>Chat en vivo</a></li>
+                        <li><a href="mailto:contacto@tuempresa.com" className="text-light">gestionocasion@gmail.com</a></li>
+                        <li><a href="tel:+123456789" className="text-light">+34 681169528</a></li>
                     </ul>
                 </div>
             </div>

@@ -21,6 +21,10 @@ class Empresas extends Model
         'fecha_alta',
         'id_empresa'
     ];
+    public function mensajes()
+    {
+        return $this->hasMany(Mensaje::class, 'id_empresa', 'id_empresa');
+    }
 
     // Relación de uno a muchos con Instalaciones
     public function instalaciones()

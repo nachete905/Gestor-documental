@@ -301,17 +301,64 @@ export function validarAnnioMatriculacion(){
 }
 export function validarFotosCoches() {
     let fotosElement = document.getElementById('fotos');
-    let fotos = fotosElement.value;  // Obtener el valor del campo
+    let fotos = fotosElement.files;  // Obtener los archivos seleccionados
     let error = document.getElementById('fotos-error');
 
     // Verificar que el campo no esté vacío
-    if (fotos === '') {
+    if (fotos.length === 0) {
         fotosElement.style.border = "2px solid red";  // Establecer borde rojo
         error.style.display = 'block';  // Mostrar mensaje de error
+        error.textContent = 'Por favor, suba entre 6 y 15 fotos.';  // Mensaje de error
         return false;  // Retornar false si está vacío
+    } else if (fotos.length < 6 || fotos.length > 15) {
+        fotosElement.style.border = "2px solid red";  // Establecer borde rojo
+        error.style.display = 'block';  // Mostrar mensaje de error
+        error.textContent = 'Debe subir entre 6 y 15 fotos.';  // Mensaje de error
+        return false;  // Retornar false si el número de fotos no está en el rango permitido
     } else {
         fotosElement.style.border = '';  // Limpiar borde
         error.style.display = 'none';  // Ocultar mensaje de error
-        return true;  // Retornar true si hay valor
+        return true;  // Retornar true si el número de fotos está en el rango permitido
     }
 }
+export function validarNombreEmpresa() {
+    let nombreEmpresa = document.getElementById('nombreEmpresa');
+    let nombreInput = nombreEmpresa.value;
+    let empresaError = document.getElementById('nombreEmpresa-error');
+    let regex = /^[a-zA-Z0-9\s\-.]{2,50}$/;
+
+    // Validar el campo de nombre
+    if (!regex.test(nombreInput) || nombreInput.trim() === "") {
+        // Si no cumple la validación, cambiar el borde a rojo y mostrar el mensaje de error
+        nombreEmpresa.style.border = "2px solid red";
+        empresaError.style.display = 'block'; // Mostrar el mensaje de error
+        return false;
+    } else {
+        // Si cumple la validación, restablecer el borde y ocultar el mensaje de error
+        nombreEmpresa.style.border = "";
+        empresaError.style.display = 'none'; // Ocultar el mensaje de error
+        return true;
+    }
+
+}
+export function validarContacto() {
+    let contacto = document.getElementById('contacto');
+    let contactoInput = contacto.value;
+    let contactoError = document.getElementById('contacto-error');
+    let regex = /^(?:\+?\d{1,3}[-.\s]?)?(?:\d{9}|\d{10}|\(\d{3}\)\s?\d{3}[-.\s]?\d{4}|\d{3}[-.\s]?\d{3}[-.\s]?\d{4})$|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Verificar que el campo no esté vacío y que cumpla la expresión regular
+    if (!contactoInput.match(regex) || contactoInput.trim() === "") {
+        // Si no cumple la validación, cambiar el borde a rojo y mostrar el mensaje de error
+        contacto.style.border = "2px solid red";
+        contactoError.style.display = 'block'; // Mostrar el mensaje de error
+        contactoError.textContent = 'Ingresa un contacto válido, puede ser un teléfono o un correo electrónico.'; // Mensaje de error
+        return false;
+    } else {
+        // Si cumple la validación, restablecer el borde y ocultar el mensaje de error
+        contacto.style.border = "";
+        contactoError.style.display = 'none'; // Ocultar el mensaje de error
+        return true;
+    }
+}
+

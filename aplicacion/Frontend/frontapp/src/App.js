@@ -13,7 +13,12 @@ import Documentacion from './componentes/tablaCoches/Documentacion.jsx';
 import TablaPropietarios from './componentes/tablaPropietarios/Propietarios.jsx'
 import DocumentacionPropietario from './componentes/tablaPropietarios/DocumentacionPropietario.jsx';
 import RegistroCompraventa from "./componentes/registroCompraVenta/RegistroCompraventa";
-
+import DarBajaEMpresa from "./componentes/darBaja/DarBajaEmpresa";
+import ActualizarEstado from './componentes/ActualizarEstado/ActualizarEstado'
+import TiendaComun from "./componentes/tiendaCoches/tiendaComun";
+import FormularioContacto from "./componentes/formularioContacto/FormularioContacto";
+import Buzon from "./componentes/Buzon/Buzon";
+import CookieConsent from './componentes/cookies/cookies';
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
@@ -29,25 +34,29 @@ function App() {
 
     return (
         <Router>
-            <div>
-                <Routes>
-                    <Route path="/" element={<Home isAuthenticated={isAuthenticated} onLogout={handleLogout} />} />
-                    <Route path="/registro" element={<Registro onLogin={handleLogin} />} />
-                    <Route path="/registroDeAdmin" element={<RegistroDeAdmin/>} />
-                    <Route path="/login" element={<Login onLogin={handleLogin} />} />
-                    <Route path="/formCoche" element={<MultiStepForm />} />
-                    <Route path="/tiendaCoches" element={<TiendaCoches />} />
-                    <Route path="/registroEmpresaUser" element={<RegistroEmpresaUser />} />
-                    <Route path="/registroVenta" element={<RegistroVenta />} />
-                    <Route path="/coches" element={<Coches />} />
-                    <Route path="/Documentacion" element={<Documentacion />} />
-                    <Route path="/propietarios" element={<TablaPropietarios />} />
-                    <Route path="/documentacionPropietario" element={<DocumentacionPropietario />} />
-                    <Route path="/registroCompraVenta" element={<RegistroCompraventa />} />
-                </Routes>
-            </div>
-        </Router>
-    );
+        <div>
+            <CookieConsent />
+            <Routes> <Route path="/" element={<Home isAuthenticated={isAuthenticated} onLogout={handleLogout} />} />
+                <Route path="/registro" element={<Registro onLogin={handleLogin} />} />
+                <Route path="/registroDeAdmin" element={<RegistroDeAdmin />} />
+                <Route path="/login" element={<Login onLogin={handleLogin} />} />
+                <Route path="/formCoche" element={<MultiStepForm />} />
+                <Route path="/tiendaCoches" element={<TiendaCoches />} />
+                <Route path="/tiendaComun" element={<TiendaComun />} />
+                <Route path="/registroEmpresaUser" element={<RegistroEmpresaUser />} />
+                <Route path="/registroVenta" element={<RegistroVenta />} />
+                <Route path="/coches" element={<Coches />} />
+                <Route path="/Documentacion" element={<Documentacion />} />
+                <Route path="/propietarios" element={<TablaPropietarios />} />
+                <Route path="/documentacionPropietario" element={<DocumentacionPropietario />} />
+                <Route path="/registroCompraVenta" element={<RegistroCompraventa />} />
+                <Route path="/darBaja" element={<DarBajaEMpresa />} />
+                <Route path="/actualizar" element={<ActualizarEstado />} />
+                <Route path="/contacto" element={<FormularioContacto />} />
+                <Route path="/buzon" element={<Buzon />} />
+            </Routes>
+        </div>
+    </Router> );
 }
 
 export default App;

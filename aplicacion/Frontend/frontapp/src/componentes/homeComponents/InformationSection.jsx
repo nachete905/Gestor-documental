@@ -17,7 +17,6 @@ export  default  function InformationSection (){
             <div
                 className="seccion-coches d-none d-lg-block mt-5 p-4 p-md-5 bg-light border border-info rounded w-75 mx-auto d-flex flex-column align-items-center"
                 id="coches-a-la-venta">
-                <h3 className="text-center text-info">Gestión de coches</h3>
                 <p className="text-center text-dark">
                     Aquí se guardarán los coches que registres en la aplicación. Esta sección te permite gestionar y
                     visualizar todos los vehículos que has añadido a nuestro sistema, para tener una sección
@@ -28,7 +27,7 @@ export  default  function InformationSection (){
                     los usuarios encontrar rápidamente lo que buscan. ¡Comienza a añadir tus coches y optimiza tu
                     gestión ahora!
                 </p>
-                <button type="submit" id="boton" className="btn btn-info w-100"
+                <button type="submit" id="coches-a-la-venta" className="btn btn-info w-100"
                         onClick={handleTiendaRegisterClick}>Llévate tu coche
                 </button>
 
@@ -83,7 +82,6 @@ export  default  function InformationSection (){
             <div
                 className="seccion-coches d-block d-lg-none mt-5 p-4 p-md-5 bg-light border border-info rounded w-100 w-md-75 mx-auto d-flex flex-column align-items-center"
                 id="coches-a-la-venta">
-                <h3 className="text-center text-info">Coches a la venta</h3>
                 <p className="text-center text-dark">
                     Aquí se guardarán los coches que registres en la aplicación. Esta sección te permite gestionar y
                     visualizar todos los vehículos que has añadido a nuestro sistema, para tener una sección
@@ -97,7 +95,7 @@ export  default  function InformationSection (){
                     gestión
                     ahora!
                 </p>
-                <button type="submit" id="boton" className="btn btn-info w-100"
+                <button id="coches-a-la-venta" type="submit" id="boton" className="btn btn-info w-100"
                         onClick={handleTiendaRegisterClick}>Llévate tu coche
                 </button>
             </div>

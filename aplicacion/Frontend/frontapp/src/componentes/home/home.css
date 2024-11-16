@@ -11,9 +11,14 @@
 }
 
 .cabecera {
-    background-color: #2b6c8e; 
+    background-color: #2b6c8e;
     color: #ffffff;
 }
+#navbarNav{
+
+    margin-left: 10%;
+}
+
 
 .acerca-de-section, .seccion-coches, .consulta-section {
     background-color: #2C2C2C; 

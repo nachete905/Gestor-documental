@@ -1,0 +1,130 @@
+.buzon {
+    background: linear-gradient(to bottom, #d0e7f9, #4b79a1);
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;  /* Añade un poco de espacio alrededor del contenedor */
+}
+
+.containerBuzon {
+
+    background: rgba(255, 255, 255, 0.9);  /* Fondo blanco con opacidad para resaltar el contenido */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 80%;  /* Limita el ancho máximo del contenedor */ /* Asegura que ocupa todo el ancho disponible */
+    margin: 0 auto;  /* Centra el contenedor horizontalmente */
+}
+
+/* Fondo de la tarjeta que simula una carta o sobre */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+h2 {
+    color: #343a40;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;  /* Centra el título */
+}
+
+/* Estilo para las tarjetas de mensaje */
+.card-body {
+    padding: 15px;
+}
+
+/* Texto de la tarjeta */
+.card-text {
+    font-size: 14px;
+    color: #495057;
+}
+
+/* Estilo de los botones */
+.botonEliminar {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.botonEliminar:hover {
+    background-color: #c82333;
+}
+
+/* Estilos del modal */
+.modal-dialog {
+    max-width: 500px;
+    margin: 30px auto;
+}
+
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.btn-close {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+}
+
+.modal-body {
+    padding: 20px;
+    color: #495057;
+}
+
+.modal-footer {
+    padding: 10px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Fondo oscuro del modal */
+.modal.show {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro para resaltar el modal */
+}
+
+.text-dark {
+    color: #343a40;
+}

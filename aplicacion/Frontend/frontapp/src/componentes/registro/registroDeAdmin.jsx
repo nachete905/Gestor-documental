@@ -105,80 +105,84 @@ export default function RegistroDeAdmin({ onLogin }) {
     };
 
     return (
-        <div className="container d-flex justify-content-center align-items-center">
-            <div className="registro-container d-flex">
-                <div className="registro-left">
-                    <img src={photo} alt="Logo" className="registro-logo" />
-                    <h2 className="text-center text-light mt-4">Registro de usuario</h2>
-                </div>
-                <div className="registro-right">
-                    <form method="POST" className="d-flex flex-column align-items-center" onSubmit={handleSubmit}>
-                        <div className="form-group w-100 text-light">
-                            <label htmlFor="nombre">Nombre de usuario</label>
-                            <input type="text" className="form-control" id="nombre" placeholder="Nombre" onChange={validarNombre} required />
-                            <span id="nombre-error" className="text-danger" style={{ display: 'none' }}>
+        <div>
+            <div className="containerRegistro d-flex justify-content-center align-items-center vh-100">
+                <div className="registro-container d-flex flex-column flex-lg-row">
+                    <div className="registro-left text-center text-lg-start">
+                        <img src={photo} alt="Logo" className="registro-logo" />
+                        <h2 className="text-center text-light mt-4">Registro de usuario</h2>
+                    </div>
+                    <div className="registro-right mt-4 mt-lg-0 w-100">
+                        <form method="POST" className="d-flex flex-column align-items-center w-100" onSubmit={handleSubmit}>
+                            <div className="form-group w-100 text-light">
+                                <label htmlFor="nombre">Nombre de usuario</label>
+                                <input type="text" className="form-control form-control-md w-100" id="nombre" placeholder="Nombre" onBlur={validarNombre} required />
+                                <span id="nombre-error" className="text-danger" style={{ display: 'none' }}>
                                 El nombre debe contener solo letras.
                             </span>
-                        </div>
-                        <div className="form-group w-100 text-light">
-                            <label htmlFor="apellido">Apellido</label>
-                            <input type="text" className="form-control" id="apellido" placeholder="Apellido" onChange={validarApellido} required />
-                            <span id="apellido-error" className="text-danger" style={{ display: 'none' }}>
+                            </div>
+                            <div className="form-group w-100 text-light">
+                                <label htmlFor="apellido">Apellido</label>
+                                <input type="text" className="form-control form-control-md w-100" id="apellido" placeholder="Apellido" onBlur={validarApellido} required />
+                                <span id="apellido-error" className="text-danger" style={{ display: 'none' }}>
                                 El apellido debe contener solo letras.
                             </span>
-                        </div>
-                        <div className="form-group w-100 text-light">
-                            <label htmlFor="email">Email</label>
-                            <input type="email" className="form-control" id="email" placeholder="Email" onChange={validarEmail} required />
-                            <span id="email-error" className="text-danger" style={{ display: 'none' }}>
+                            </div>
+                            <div className="form-group w-100 text-light">
+                                <label htmlFor="email">Email</label>
+                                <input type="email" className="form-control form-control-md w-100" id="email" placeholder="Email" onBlur={validarEmail} required />
+                                <span id="email-error" className="text-danger" style={{ display: 'none' }}>
                                 Ingresa un email válido.
                             </span>
-                        </div>
-                        <div className="form-group w-100 text-light">
-                            <label htmlFor="telefono">Teléfono</label>
-                            <input type="text" className="form-control" id="telefono" placeholder="Teléfono" onChange={validarTelefono} required />
-                            <span id="telefono-error" className="text-danger" style={{ display: 'none' }}>
-                                Ingresa un teléfono válido.
-                            </span>
-                        </div>
-                        <div className="form-group w-100 text-light">
-                            <label htmlFor="password">Password</label>
-                            <input type="password" className="form-control" id="password" placeholder="Password" onChange={validarPassword} required />
-                            <span id="contrasenna-error" className="text-danger" style={{ display: 'none' }}>
+                            </div>
+                            <div className="form-group w-100 text-light">
+                                <label htmlFor="telefono">Teléfono</label>
+                                <input type="text" className="form-control form-control-md w-100" id="telefono" placeholder="Teléfono" onBlur={validarTelefono} required />
+                                <span id="telefono-error" className="text-danger" style={{ display: 'none' }}>
+                                    Ingresa un teléfono válido.
+                                </span>
+                            </div>
+                            <div className="form-group w-100 text-light">
+                                <label htmlFor="password">Password</label>
+                                <input type="password" className="form-control form-control-md w-100" id="password" placeholder="Password" onBlur={validarPassword} required />
+                                <span id="contrasenna-error" className="text-danger" style={{ display: 'none' }}>
                                 La contraseña no cumple con los requisitos.
                             </span>
-                            <ul id="password-requisitos" className="text-danger" style={{ display: 'none' }}>
-                                <li id="mayuscula">Mínimo una mayúscula</li>
-                                <li id="numero">Mínimo un número</li>
-                                <li id="especial">Mínimo un carácter especial</li>
-                                <li id="longitud">Mínimo 8 caracteres</li>
-                            </ul>
-                        </div>
-                        <div className="form-group w-100 text-light">
-                            <label htmlFor="tipoUser">Rol</label>
-                            <select className="form-control" id="tipoUser" required>
-                                <option value="1">Administrador</option>
-                                <option value="2">No Administrador</option>
-                            </select>
-                        </div>
-                        <div className="form-group w-100 text-light">
-                            <label htmlFor="instalacion">Instalación</label>
-                            <select id="instalacion" className="form-control" required>
-                                <option value="">Seleccione una instalación</option>
-                                {instalaciones.map(instalacion => (
-                                    <option key={instalacion.id_instalacion} value={instalacion.id_instalacion}>
-                                        {instalacion.ubicacion}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="form-group w-100 text-light d-flex justify-content-center">
-                            <button id="enviar" type="submit" className="btn btn-primary mt-2">Enviar</button>
-                        </div>
-                        {errorMessage && <p className="text-danger">{errorMessage}</p>}
-                    </form>
+                                <ul id="password-requisitos" className="text-danger" style={{ display: 'none' }}>
+                                    <li id="mayuscula">Mínimo una mayúscula</li>
+                                    <li id="numero">Mínimo un número</li>
+                                    <li id="especial">Mínimo un carácter especial</li>
+                                    <li id="longitud">Mínimo 8 caracteres</li>
+                                </ul>
+                            </div>
+                            <div className="form-group w-100 text-light">
+                                <label htmlFor="tipoUser">Rol</label>
+                                <select className="form-control form-control-md w-100" id="tipoUser" required>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">No Administrador</option>
+                                </select>
+                            </div>
+                            <div className="form-group w-100 text-light">
+                                <label htmlFor="instalacion">Instalación</label>
+                                <select id="instalacion" className="form-control form-control-md w-100" required>
+                                    <option value="">Seleccione una instalación</option>
+                                    {instalaciones.map(instalacion => (
+                                        <option key={instalacion.id_instalacion} value={instalacion.id_instalacion}>
+                                            {instalacion.ubicacion}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group w-100 text-light d-flex justify-content-center">
+                                <button id="enviar" type="submit" className="btn btn-primary mt-2">Enviar</button>
+                            </div>
+                            {errorMessage && <p className="text-danger">{errorMessage}</p>}
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     );
+
+
 }

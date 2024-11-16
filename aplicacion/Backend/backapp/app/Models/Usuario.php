@@ -54,6 +54,9 @@ class Usuario extends Authenticatable implements JWTSubject
     {
         return $this->tipoUser === 3;
     }
+    public function esNormal(){
+        return $this->tipoUser === 4;
+    }
     public function daAlta()
     {
         return $this->hasMany(DaAlta::class, 'id_usuario');

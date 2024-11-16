@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import jsPDF from "jspdf";
 import data from "bootstrap/js/src/dom/data";
+import BarraNavegacion from "../barraNavegacion/BarraNavegacion";
 
 
 export default function RegistroCompraventa(){
@@ -119,10 +120,12 @@ export default function RegistroCompraventa(){
 
     if (loading) {
         return (
-            <div className="text-center mt-5 fs-2 bg-dark text-white rounded p-3">
-                <div className="loading-circle">
-                    <div>
-                        Cargando<span>{puntosAnimados}</span>
+            <div className="tabla d-flex vh-100 align-items-center justify-content-center">
+                <div className="text-center fs-2 bg-dark text-white rounded p-3">
+                    <div className="loading-circle">
+                        <div>
+                            Cargando<span>{puntosAnimados}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -136,26 +139,48 @@ export default function RegistroCompraventa(){
 
 
     return (
-        <div className='container'>
-            <div className="tabla">
-                <h2>Registro de compra venta</h2>
+        <div className="tabla">
+            <BarraNavegacion></BarraNavegacion>
+            <h2 className="text-light text-center">Registro de compra venta</h2>
+            <div className="container d-none d-lg-block">
                 <form onSubmit={handleSubmit} className="mb-3">
                     <input
                         type="text"
-                        className='form-control mb-2'
+                        className="form-control mb-2"
                         name="busqueda"
                         id="busqueda"
                         placeholder="Buscar por matrícula"
                         value={busqueda}
                         onChange={handleBusqueda}
                     />
-                    <button className='btn btn-primary w-100 mb-3' type="submit">Buscar</button>
+                    <button className="btn btn-primary w-100 mb-3" type="submit">Buscar</button>
                 </form>
                 <button onClick={mostrarTodoElRegistro} className="btn btn-secondary w-100 rounded mt-3">
                     Mostrar Todos
                 </button>
-                <div className='table d-none d-lg-block'>
-                    <table className='table mt-3'>
+            </div>
+
+            <div className="d-block d-lg-none">
+                <form onSubmit={handleSubmit} className="mb-3 d-flex flex-column align-items-center">
+                    <input
+                        type="text"
+                        className="w-75 mb-2"
+                        name="busqueda"
+                        id="busqueda"
+                        placeholder="Buscar por matrícula"
+                        value={busqueda}
+                        onChange={handleBusqueda}
+                    />
+                    <button className="btn btn-primary w-75 mb-3" type="submit">Buscar</button>
+                    <button onClick={mostrarTodoElRegistro} className="btn btn-secondary w-75 rounded">
+                        Mostrar Todos
+                    </button>
+                </form>
+            </div>
+
+            <div className="container">
+                <div className="table d-none d-lg-block">
+                    <table className="table">
                         <thead>
                         <tr>
                             <th>Acción realizada</th>
@@ -178,7 +203,6 @@ export default function RegistroCompraventa(){
                                     <td>{coche.vendedor}</td>
                                 </tr>
                             ))
-
                         ) : (
                             <tr>
                                 <td colSpan="6">No se encontraron propietarios</td>
@@ -186,36 +210,31 @@ export default function RegistroCompraventa(){
                         )}
                         </tbody>
                     </table>
-
                 </div>
-                <div className='d-block d-lg-none'>
+
+                <div className="d-block d-lg-none">
                     {coches.length > 0 ? (
                         coches.map((coche, index) => (
                             <div className="accordion mt-3" id={`accordion-${index}`} key={index}>
                                 <div className="accordion-item">
                                     <h2 className="accordion-header" id={`heading-${index}`}>
                                         <button className="accordion-button" type="button" data-bs-toggle="collapse"
-                                                data-bs-target={`#collapse-${index}`} // Usamos el índice para hacer que sea único
+                                                data-bs-target={`#collapse-${index}`}
                                                 aria-expanded="false"
-                                                aria-controls={`collapse-${index}`} // También aquí para hacerlo único
-                                        >
+                                                aria-controls={`collapse-${index}`}>
                                             {coche.matricula}
                                         </button>
                                     </h2>
-                                    <div
-                                        id={`collapse-${index}`} // Identificador único
-                                        className="accordion-collapse collapse"
-                                        aria-labelledby={`heading-${index}`}
-                                        data-bs-parent={`#accordion-${index}`}
-                                    >
+                                    <div id={`collapse-${index}`} className="accordion-collapse collapse"
+                                         aria-labelledby={`heading-${index}`}
+                                         data-bs-parent={`#accordion-${index}`}>
                                         <div className="accordion-body">
-                                            <div><p><strong>Acción realizada:</strong> {coche.accion_realizada}</p>
-                                            </div>
+                                            <div><p><strong>Acción realizada:</strong> {coche.accion_realizada}</p></div>
                                             <div><p><strong>Coche:</strong> {coche.coche}</p></div>
                                             <div><p><strong>Comprador:</strong> {coche.comprador}</p></div>
                                             <div><p><strong>Fecha:</strong> {coche.fecha}</p></div>
                                             <div><p><strong>Matrícula:</strong> {coche.matricula}</p></div>
-                                            <div><p><strong>Vendedor:</strong>{coche.vendedor}</p></div>
+                                            <div><p><strong>Vendedor:</strong> {coche.vendedor}</p></div>
                                         </div>
                                     </div>
                                 </div>
@@ -225,17 +244,18 @@ export default function RegistroCompraventa(){
                         <div>No se encontraron coches</div>
                     )}
                 </div>
-                <div className='d-none d-lg-block'>
+                <div className="d-none d-lg-block">
                     <button onClick={() => generarPDF(coches)} className="mt-3 rounded">
                         Generar PDF
                     </button>
                 </div>
-                <div className='d-block d-lg-none d-flex flex-column align-items-center'>
+                <div className="d-block d-lg-none d-flex flex-column align-items-center">
                     <button onClick={() => generarPDF(coches)} className="mt-3 rounded w-50">
                         Generar PDF
                     </button>
                 </div>
             </div>
         </div>
-    )
+    );
+
 }

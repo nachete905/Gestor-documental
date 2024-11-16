@@ -8,7 +8,6 @@ import './registro.css';  // Asegúrate de importar el archivo CSS personalizado
 
 export function recogerDatos(event, navigate, onLogin, setErrorMessage) {
     event.preventDefault();
-    
     // Recolectar los datos del formulario
     let nombre = document.getElementById("nombre").value;
     let apellido = document.getElementById("apellido").value;
@@ -58,11 +57,11 @@ export function recogerDatos(event, navigate, onLogin, setErrorMessage) {
         return response.json();
     })
     .then(data => {
-        console.log("Inicio de sesión exitoso:", data);
+        alert('Redirigiendo al home con la sesión iniciada')
         localStorage.setItem('token', data.token);  // Guarda el token en el almacenamiento local
         localStorage.setItem('isLoggedIn', 'true');
         onLogin();  // Actualiza el estado de autenticación
-        navigate('/');  // Redirige al usuario a la página de inicio
+       window.location.href = '/';  // Redirige al usuario a la página de inicio
     })
     .catch(error => {
         console.error("Error:", error);
@@ -76,53 +75,52 @@ export default function Registro({ onLogin }) {
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = (event) => {
-        recogerDatos(event,  onLogin,navigate, setErrorMessage);
+        recogerDatos(event, onLogin, navigate, setErrorMessage);
     };
-
     return (
-        <div className="container d-flex justify-content-center align-items-center">
-            <div className="registro-container d-flex">
-                <div className="registro-left">
-                    <img src={photo} alt="Logo" className="registro-logo" />
+        <div className="containerRegistro d-flex justify-content-center align-items-center">
+            <div className="registro-container d-flex flex-column flex-md-row">
+                <div className="registro-left d-flex flex-column align-items-center">
+                    <img src={photo} alt="Logo" className="registro-logo"/>
                     <h2 className="text-center text-light mt-4">Registro</h2>
                 </div>
-                <div className="registro-right">
-                    <form method="POST" className="d-flex flex-column align-items-center" onSubmit={handleSubmit}>
+                <div className="registro-right w-100">
+                    <form method="POST" className="d-flex flex-column align-items-center w-100" onSubmit={handleSubmit}>
                         <div className="form-group w-100 text-light">
                             <label htmlFor="nombre">Nombre de usuario</label>
-                            <input type="text" className="form-control" id="nombre" placeholder="Nombre" onBlur={validarNombre} />
-                            <span id="nombre-error" className="text-danger" style={{ display: 'none' }}>
-                                El nombre no está bien escrito.
-                            </span>
+                            <input type="text" className="form-control w-100" id="nombre" placeholder="Nombre" onBlur={validarNombre}/>
+                            <span id="nombre-error" className="text-danger" style={{display: 'none'}}>
+                            El nombre no está bien escrito.
+                        </span>
                         </div>
                         <div className="form-group w-100 text-light">
                             <label htmlFor="apellido">Apellido</label>
-                            <input type="text" className="form-control" id="apellido" placeholder="Apellido" onBlur={validarApellido} />
-                            <span id="apellido-error" className="text-danger" style={{ display: 'none' }}>
-                                El apellido no está bien escrito.
-                            </span>
+                            <input type="text" className="form-control w-100" id="apellido" placeholder="Apellido" onBlur={validarApellido}/>
+                            <span id="apellido-error" className="text-danger" style={{display: 'none'}}>
+                            El apellido no está bien escrito.
+                        </span>
                         </div>
                         <div className="form-group w-100 text-light">
                             <label htmlFor="email">Email</label>
-                            <input type="email" className="form-control" id="email" placeholder="Email" onBlur={validarEmail} />
-                            <span id="email-error" className="text-danger" style={{ display: 'none' }}>
-                                El Email no está bien escrito.
-                            </span>
+                            <input type="email" className="form-control w-100" id="email" placeholder="Email" onBlur={validarEmail}/>
+                            <span id="email-error" className="text-danger" style={{display: 'none'}}>
+                            El Email no está bien escrito.
+                        </span>
                         </div>
                         <div className="form-group w-100 text-light">
                             <label htmlFor="telefono">Teléfono</label>
-                            <input type="text" className="form-control" id="telefono" placeholder="Teléfono" onBlur={validarTelefono} />
-                            <span id="telefono-error" className="text-danger" style={{ display: 'none' }}>
-                                El teléfono no está bien escrito.
-                            </span>
+                            <input type="text" className="form-control w-100" id="telefono" placeholder="Teléfono" onBlur={validarTelefono}/>
+                            <span id="telefono-error" className="text-danger" style={{display: 'none'}}>
+                            El teléfono no está bien escrito.
+                        </span>
                         </div>
                         <div className="form-group w-100 text-light">
                             <label htmlFor="password">Password</label>
-                            <input type="password" className="form-control" id="password" placeholder="Password" onChange={validarPassword} />
-                            <span id="contrasenna-error" className="text-danger" style={{ display: 'none' }}>
-                                La contraseña no cumple los requisitos
-                            </span>
-                            <ul id="password-requisitos" className="text-danger" style={{ display: 'none' }}>
+                            <input type="password" className="form-control w-100" id="password" placeholder="Password" onChange={validarPassword}/>
+                            <span id="contrasenna-error" className="text-danger" style={{display: 'none'}}>
+                            La contraseña no cumple los requisitos
+                        </span>
+                            <ul id="password-requisitos" className="text-danger" style={{display: 'none'}}>
                                 <li id="mayuscula">Mínimo una mayúscula</li>
                                 <li id="numero">Mínimo un número</li>
                                 <li id="especial">Mínimo un carácter especial</li>
@@ -130,10 +128,10 @@ export default function Registro({ onLogin }) {
                             </ul>
                         </div>
                         <div className="form-group w-100 text-light d-flex justify-content-center">
-                            <button id="enviar" type="submit" className="btn btn-primary mt-2">Enviar</button>
-                            <span id="submit-error" className="text-danger" style={{ display: 'none' }}>
-                                Falta algún campo por rellenar
-                            </span>
+                            <button id="enviar" type="submit" className="btn btn-primary mt-2 w-100">Enviar</button>
+                            <span id="submit-error" className="text-danger" style={{display: 'none'}}>
+                            Falta algún campo por rellenar
+                        </span>
                         </div>
                         {errorMessage && <p className="text-danger mt-2">{errorMessage}</p>}
                     </form>
@@ -141,4 +139,7 @@ export default function Registro({ onLogin }) {
             </div>
         </div>
     );
+
+
 }
+

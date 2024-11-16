@@ -93,9 +93,7 @@ class AuthController extends Controller
             $usuario->email = $request->email;
             $usuario->telefono = $request->telefono;
             $usuario->password  = $request->password;
-
-            // Establecer el tipo de usuario, valor predeterminado es 2
-            $usuario->tipoUser = $request->filled('tipoUser') ? $request->tipoUser : 2;
+            $usuario->tipoUser = 4;
 
             $usuario->save();
             // Generar el token JWT
@@ -110,7 +108,6 @@ class AuthController extends Controller
             return response()->json(['error' => 'Validation error', 'message' => $e->getMessage()], 422);
         } catch (Exception $e) {
             return response()->json(['error' => 'An error occurred', 'message' => $e->getMessage()], 500);
-            echo "estoy aqui";
         }
     }
     public function registroPorAdmin(Request $request)
@@ -271,7 +268,8 @@ class AuthController extends Controller
 
             return response()->json([
                 'isAdmin' => $user->esAdmin(),
-                'isSuperRoot' => $user->esSuperRoot()
+                'isSuperRoot' => $user->esSuperRoot(),
+                'esNormal' => $user->esNormal(),
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Server Error', 'message' => $e->getMessage()], 500);

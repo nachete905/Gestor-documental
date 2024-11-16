@@ -1,4 +1,8 @@
 /* Estilo general del contenedor */
+.tabla{
+    background-color: #1e3a5f;
+    min-height: 100vh;
+}
 
 input[type="text"] {
     padding: 10px;

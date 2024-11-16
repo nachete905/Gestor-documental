@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import jsPDF from "jspdf";
+import BarraNavegacion from "../barraNavegacion/BarraNavegacion";
 
 export default function Coches() {
     const [propietarios, setPropietarios] = useState([]);
@@ -123,10 +124,12 @@ export default function Coches() {
 
     if (loading) {
         return (
-            <div className="text-center mt-5 fs-2 bg-dark text-white rounded p-3">
-                <div className="loading-circle">
-                    <div>
-                        Cargando<span>{puntosAnimados}</span>
+            <div className="d-flex vh-100 align-items-center justify-content-center">
+                <div className="text-center fs-2 bg-dark text-white rounded p-3">
+                    <div className="loading-circle">
+                        <div>
+                            Cargando<span>{puntosAnimados}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -141,25 +144,26 @@ export default function Coches() {
 
 
     return (
-        <div className='container'>
-            <div className="tabla">
-                <h2>Lista de propietarios</h2>
-                <form onSubmit={handleSubmit} className="mb-3">
-                    <input
-                        type="text"
-                        className='form-control mb-2'
-                        name="busqueda"
-                        id="busqueda"
-                        placeholder="Buscar por DNI"
-                        value={busqueda}
-                        onChange={handleBusqueda}
-                    />
-                    <button type="submit" className='btn btn-primary w-100'>Buscar</button>
-                </form>
-                <button onClick={mostrarTodosLosPropietarios} className="btn btn-secondary mt-3 rounded w-100">
+        <div className="tabla">
+            <BarraNavegacion></BarraNavegacion>
+            <h2 className='text-light mt-5'>Lista de propietarios</h2>
+            <form onSubmit={handleSubmit} className="mb-3 d-flex flex-column align-items-center">
+                <input
+                    type="text"
+                    className='w-75 mb-2'
+                    name="busqueda"
+                    id="busqueda"
+                    placeholder="Buscar por DNI"
+                    value={busqueda}
+                    onChange={handleBusqueda}
+                />
+                <button type="submit" className='btn btn-primary w-75 mb-3'>Buscar</button>
+                <button onClick={mostrarTodosLosPropietarios} className="btn btn-secondary w-75 rounded">
                     Mostrar Todos
                 </button>
-                <div className='table d-none d-lg-block'>
+            </form>
+            <div className='container'>
+                <div className='container d-none d-lg-block'>
                     <table className='table mt-3'>
                         <thead>
                         <tr>
@@ -246,13 +250,25 @@ export default function Coches() {
                             </div>
                         ))
                     ) : (
-                        <div>No se encontraron coches</div>
+                        <div>No se encontraron propietarios</div>
                     )}
                 </div>
-                <button onClick={() => generarPDF(propietarios)} className="btn btn-primary mt-3 rounded w-100">
-                    Generar PDF
-                </button>
+                <div className='d-none d-lg-block'>
+                    <button onClick={() => generarPDF(propietarios)} className="btn btn-primary w-100 mb-3">
+                        Generar PDF
+                    </button>
+                </div>
+                <div className='d-block d-lg-none d-flex flex-column align-items-center'>
+                    <button onClick={() => generarPDF(propietarios)} className="mt-3 rounded w-50">
+                        Generar PDF
+                    </button>
+                </div>
+
+
             </div>
+
+
         </div>
     );
+
 }
