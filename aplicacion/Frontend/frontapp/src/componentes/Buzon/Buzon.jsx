@@ -187,6 +187,7 @@ export function enviarMensajeBorrar(id_mensaje) {
         .then(data => {
             if (data.message === 'mensaje eliminado') {
                 console.log('Mensaje eliminado correctamente');
+                window.location.reload();
             } else {
                 console.error('Error al eliminar el mensaje:', data.message);
             }
