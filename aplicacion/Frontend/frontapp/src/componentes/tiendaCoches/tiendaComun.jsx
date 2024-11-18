@@ -81,7 +81,7 @@ export default function TiendaComun() {
 
     const handleContacto = async (matricula) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/cocheEmpresa/${matricula}`);
+            const response = await fetch(`https://gestionocasion.com/api/cocheEmpresa/${matricula}`);
             const empresa = await response.json();
             navigate("/contacto", { state: { id_empresa: empresa.id_empresa } });
         } catch (error) {
