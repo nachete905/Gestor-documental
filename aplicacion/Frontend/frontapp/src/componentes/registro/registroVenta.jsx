@@ -245,12 +245,12 @@ const RegistroVenta = () => {
                             <form method="POST" onSubmit={submitForm} className="d-flex flex-column align-items-center w-100">
                                 <div className="mb-3 w-100">
                                     <label htmlFor="nominas" className="form-label">Nóminas (Archivo):</label>
-                                    <input type="file" id="nominas" name="nominas" className="form-control" onChange={handleDocumentacionChange} onBlur={validarFotos} />
+                                    <input type="file" id="nominas" name="nominas" className="form-control" onChange={handleDocumentacionChange} />
                                     <span id="foto1-error" className="text-danger" style={{ display: 'none' }}>No puede estar vacío.</span>
                                 </div>
                                 <div className="mb-3 w-100">
                                     <label htmlFor="carnet" className="form-label">Carnet (Archivo):</label>
-                                    <input type="file" id="carnet" name="carnet" className="form-control" onChange={handleDocumentacionChange} onBlur={validarFotos} />
+                                    <input type="file" id="carnet" name="carnet" className="form-control" onChange={handleDocumentacionChange} />
                                     <span id="foto2-error" className="text-danger" style={{ display: 'none' }}>No puede estar vacío.</span>
                                 </div>
                                 <div className="mb-3 w-100">

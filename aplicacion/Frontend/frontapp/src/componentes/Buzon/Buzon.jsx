@@ -175,7 +175,7 @@ export function enviarMensajeBorrar(id_mensaje) {
     let dato = {
         id: id
     };
-    fetch(`https://gestionocasion.com/api/eliminarMensaje`, {
+    fetch(`http://localhost:8000/api/eliminarMensaje`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,

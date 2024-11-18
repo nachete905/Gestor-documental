@@ -126,42 +126,6 @@ export function validarPassword() {
 }
 
 
-export function validarFotos() {
-    let fotoNomina = document.getElementById('fotoNomina');
-    let nomina = fotoNomina.value;
-    let fotoCarnet = document.getElementById('fotoCarnet');
-    let carnet = fotoCarnet.value;
-
-
-    let error1 = document.getElementById('foto1-error');
-    let error2 = document.getElementById('foto2-error');
-
-
-    let isValid = true;
-
-    if (nomina === '') {
-        fotoNomina.style.border = "2px solid red";
-        error1.style.display = 'block';
-        isValid = false;
-    } else {
-        fotoNomina.style.border = '';
-        error1.style.display = 'none';
-    }
-
-    if (carnet === '') {
-        fotoCarnet.style.border = "2px solid red";
-        error2.style.display = 'block';
-        isValid = false;
-    } else {
-        fotoCarnet.style.border = '';
-        error2.style.display = 'none';
-    }
-
-
-
-    return isValid;
-}
-
 
 
 export function validarDNI() {

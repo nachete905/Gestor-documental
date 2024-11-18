@@ -59,7 +59,7 @@ export default function ActualizarEstado() {
 
     useEffect(() => {
         // Primera petición para obtener los datos del usuario
-        fetch('https://gestionocasion.com/api/getUserData', {
+        fetch(`https://gestionocasion.com/api/getUserData`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,

@@ -6,7 +6,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import BarraNavegacion from "../barraNavegacion/BarraNavegacion";
 
 const getPhotoUrl = (photoPath) => {
-    const url = `http://localhost:8000/${photoPath}`;
+    const url = `https://gestionocasion.com/${photoPath}`;
     return url;
 };
 

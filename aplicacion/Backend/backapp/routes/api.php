@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CocheController;
 use App\Http\Controllers\CompraCocheController;
-use App\Http\Controllers\tiendaCoche;
+use App\Http\Controllers\TiendaCoche;
 use App\Http\Controllers\AuthEmpresa;
 use App\Http\Controllers\ReservaCoche;
 use App\Http\Controllers\AuthCoche;
@@ -14,7 +14,7 @@ use App\Http\Controllers\BuzonController;
 
 
 Route::get('coches/{id_instalacion}/{matricula?}', [CocheController::class, 'obtenerCoches']);
-Route::get('tiendaCoches/{id_empresa}', [tiendaCoche::class, 'extraerDatosCoches']);
+Route::get('tiendaCoches/{id_empresa}', [TiendaCoche::class, 'extraerDatosCoches']);
 Route::get('usuariosEmpresa/{id_empresa}/', [CompraCocheController::class, 'usuariosPorEmpresa']);
 Route::get('instalaciones/{id_empresa}', [AuthController::class,'obtenerInstalacionesPorEmpresa']);
 Route::get('refresh', [AuthController::class, 'refrescarToken'])->middleware('auth:api');

@@ -218,15 +218,15 @@ const MultiStepForm = () => {
                   <form onSubmit={submitForm} className="d-flex flex-column align-items-center w-100">
                     <div className="mb-3 w-100">
                       <label htmlFor="nombre" className="form-label">Nombre:</label>
-                      <input type="text" id="nombre" name="nombre" className="form-control form-control-lg w-100" placeholder="Nombre" value={formData.nombre} onChange={handleChange} onBlur={validarNombre}/>
+                      <input type="text" id="nombre" name="nombre" className="form-control form-control-lg w-100" placeholder="Nombre" value={formData.nombre} onChange={handleChange}/>
                     </div>
                     <div className="mb-3 w-100">
                       <label htmlFor="apellido" className="form-label">Apellido:</label>
-                      <input type="text" id="apellido" name="apellido" className="form-control form-control-lg w-100" placeholder="Apellido" value={formData.apellido} onChange={handleChange} onBlur={validarApellido} />
+                      <input type="text" id="apellido" name="apellido" className="form-control form-control-lg w-100" placeholder="Apellido" value={formData.apellido} onChange={handleChange}     />
                     </div>
                     <div className="mb-3 w-100">
                       <label htmlFor="email" className="form-label">Email:</label>
-                      <input type="email" id="email" name="email" className="form-control form-control-lg w-100" placeholder="Email" value={formData.email} onChange={handleChange} onBlur={validarEmail} />
+                      <input type="email" id="email" name="email" className="form-control form-control-lg w-100" placeholder="Email" value={formData.email} onChange={handleChange} />
                     </div>
                     <div className="mb-3 w-100">
                       <label htmlFor="telefono" className="form-label">Teléfono:</label>

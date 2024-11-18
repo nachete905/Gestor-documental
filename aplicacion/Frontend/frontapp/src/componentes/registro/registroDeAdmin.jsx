@@ -28,7 +28,7 @@ export function recogerDatos(event, setErrorMessage, navigate, onLogin, id_insta
         id_empresa
     }
 
-    fetch('https://gestionocasion.com/api/registroAdmin', {
+    fetch('http://localhost:8000/api/registroAdmin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

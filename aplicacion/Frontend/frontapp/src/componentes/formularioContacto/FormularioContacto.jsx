@@ -1,12 +1,13 @@
 import photo from "../logo/Logo.webp";
 import { validarEmail, validarNombre } from "../registro/validacionesRegistro";
 import React from "react";
-import { useLocation } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import './formularioContacto.css';
 import {validarTextArea} from "./validarTextArea";
 
 export default function FormularioContacto() {
     const location = useLocation();
+    const navigate = useNavigate();
     const { id_empresa } = location.state || {};
 
     const recogerDatos = async (e) => {
@@ -49,7 +50,9 @@ export default function FormularioContacto() {
             if (!response.ok) {
                 console.error("Error al enviar mensaje:", result.error);
             } else {
-                console.log("Mensaje enviado exitosamente:", result);
+
+                alert('Mensaje enviado correctamente, regresando al home...');
+                navigate("/");
             }
         } catch (error) {
             console.error("Error de red al enviar mensaje:", error);
