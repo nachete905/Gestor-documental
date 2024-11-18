@@ -43,7 +43,7 @@ const MultiStepForm = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/getUserData', {
+        fetch('https://gestionocasion.com/api/getUserData', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -66,7 +66,7 @@ const MultiStepForm = () => {
 
                 if (idEmpresa) {
                     setEmpresaId(idEmpresa);
-                    return fetch(`http://localhost:8000/api/usuariosEmpresa/${idEmpresa}`);
+                    return fetch(`https://gestionocasion.com/api/usuariosEmpresa/${idEmpresa}`);
                 } else {
                     throw new Error('ID de la empresa no encontrado');
                 }
@@ -130,7 +130,7 @@ const MultiStepForm = () => {
 
         
         try {
-            const response = await fetch('http://localhost:8000/api/compraCoche', {
+            const response = await fetch('https://gestionocasion.com/api/compraCoche', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

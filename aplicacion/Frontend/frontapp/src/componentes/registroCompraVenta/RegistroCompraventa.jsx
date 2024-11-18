@@ -26,7 +26,7 @@ export default function RegistroCompraventa(){
 
 
     const obtenerDatos = (query = "") =>{
-        fetch('http://localhost:8000/api/getUserData', {
+        fetch('https://gestionocasion.com/api/getUserData', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -40,7 +40,7 @@ export default function RegistroCompraventa(){
                 let id_empresa = data.user.id_empresa;
                 if(id_empresa){
                     setEmpresaId(id_empresa);
-                    let url = `http://localhost:8000/api/registroCompraVenta/${id_empresa}`
+                    let url = `https://gestionocasion.com/api/registroCompraVenta/${id_empresa}`
                     if (query) {
                         url += `/${query}`;
                     }

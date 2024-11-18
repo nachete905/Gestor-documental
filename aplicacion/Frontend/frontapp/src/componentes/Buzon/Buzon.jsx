@@ -26,7 +26,7 @@ const ComponenteMensajes = () => {
 
     useEffect(() => {
         // Obtener datos del usuario para acceder a la empresa
-        fetch('http://localhost:8000/api/getUserData', {
+        fetch('https://gestionocasion.com/api/getUserData', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -42,7 +42,7 @@ const ComponenteMensajes = () => {
                     const idEmpresa = data.user.id_empresa;
                     if (idEmpresa) {
                         setEmpresaId(idEmpresa);
-                        let url = `http://localhost:8000/api/mail/${idEmpresa}`;
+                        let url = `https://gestionocasion.com/api/mail/${idEmpresa}`;
 
                         // Fetch de los mensajes de la empresa
                         fetch(url)
@@ -175,7 +175,7 @@ export function enviarMensajeBorrar(id_mensaje) {
     let dato = {
         id: id
     };
-    fetch(`http://localhost:8000/api/eliminarMensaje`, {
+    fetch(`https://gestionocasion.com/api/eliminarMensaje`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,

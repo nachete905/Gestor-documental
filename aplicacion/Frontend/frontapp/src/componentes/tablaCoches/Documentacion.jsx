@@ -23,7 +23,7 @@ function Documentacion() {
         if (matriculaGuardada) {
 
             // Hacer una solicitud POST para obtener la documentación usando la matrícula en la URL
-            fetch(`http://localhost:8000/api/coche/documentacion/${matriculaGuardada}`, {
+            fetch(`https://gestionocasion.com/api/coche/documentacion/${matriculaGuardada}`, {
                 method: 'POST', // Mantener el método POST
                 headers: {
                     'Content-Type': 'application/json',

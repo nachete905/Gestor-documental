@@ -21,7 +21,7 @@ import './home.css';
 
 
 function handleTokenExpiry(navigate) {
-    fetch('http://localhost:8000/api/refresh', {
+    fetch('https://gestionocasion.com/api/refresh', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export default function Home({ isAuthenticated, onLogout }) {
                 const decodedToken = jwtDecode(token);
                 setUserType(decodedToken.tipoUser);
 
-                fetch('http://localhost:8000/api/esAdmin', {
+                fetch('https://gestionocasion.com/api/esAdmin', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -74,7 +74,6 @@ export default function Home({ isAuthenticated, onLogout }) {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     if (data.isAdmin) {
                         setUserType(1); // admin
                         localStorage.setItem('tipoUsuario', '1');
@@ -133,7 +132,7 @@ export default function Home({ isAuthenticated, onLogout }) {
 
 
     const handleLogoutClick = () => {
-        fetch('http://localhost:8000/api/logout', {
+        fetch('https://gestionocasion.com/api/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
 export function enviarIdEmpresa(id_empresa){
-    fetch(`http://localhost:8000/api/eliminarEmpresa/${id_empresa}`, {
+    fetch(`https://gestionocasion.com/api/eliminarEmpresa/${id_empresa}`, {
         method: 'POST',  // Cambia a 'DELETE' si lo deseas y has configurado esa ruta en el backend.
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -29,7 +29,7 @@ export default function DarBajaEmpresa (){
     const [empresas, setEmpresas] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/nombreEmpresas', {
+        fetch('https://gestionocasion.com/api/nombreEmpresas', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,

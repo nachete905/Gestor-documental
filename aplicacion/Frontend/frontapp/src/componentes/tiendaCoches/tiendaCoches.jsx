@@ -7,7 +7,7 @@ import BarraNavegacion from "../barraNavegacion/BarraNavegacion";
 
 // Función para obtener la URL completa de la foto
 const getPhotoUrl = (photoPath) => {
-    const url = `http://localhost:8000/${photoPath}`;
+    const url = `https://gestionocasion.com/${photoPath}`;
     return url;
 };
 
@@ -30,7 +30,7 @@ export default function TiendaCoches() {
     const puntosAnimados = ".".repeat(dots);
     useEffect(() => {
         // Primera petición para obtener los datos del usuario
-        fetch('http://localhost:8000/api/getUserData', {
+        fetch('https://gestionocasion.com/api/getUserData', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -46,7 +46,7 @@ export default function TiendaCoches() {
                     const idEmpresa = data.user.id_empresa;
                     if (idEmpresa) {
                         setEmpresaId(idEmpresa);
-                        return fetch(`http://localhost:8000/api/tiendaCoches/${idEmpresa}`);
+                        return fetch(`https://gestionocasion.com/api/tiendaCoches/${idEmpresa}`);
                     } else {
                         throw new Error('ID de la empresa no encontrado');
                     }
@@ -70,7 +70,7 @@ export default function TiendaCoches() {
     useEffect(() => {
         if (empresaId) {
             // Nueva petición para obtener el estado de los coches
-            fetch(`http://localhost:8000/api/estadoCoches/${empresaId}`)
+            fetch(`https://gestionocasion.com/api/estadoCoches/${empresaId}`)
                 .then(response => {
                     if (!response.ok) throw new Error('Error fetching coche states');
                     return response.json();

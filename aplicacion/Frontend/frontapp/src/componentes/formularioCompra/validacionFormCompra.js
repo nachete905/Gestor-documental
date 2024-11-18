@@ -254,7 +254,7 @@ export function validarKilometraje(){
     let kilometros =kilometrajeElement.value;
     let error =  document.getElementById('kilometraje-error')
 
-    if(kilometros !== '' && isNaN(kilometros) && kilometros >0){
+    if(kilometros !== ''  && kilometros >0){
         kilometrajeElement.style.border = '';
         error.style.display = 'none';
         return true;

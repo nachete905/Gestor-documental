@@ -33,7 +33,7 @@ export default function FormularioContacto() {
 
         try {
             // Enviar el mensaje como JSON al backend
-            const response = await fetch("http://localhost:8000/api/contactar", {
+            const response = await fetch("https://gestionocasion.com/api/contactar", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

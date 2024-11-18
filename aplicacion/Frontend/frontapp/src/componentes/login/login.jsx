@@ -17,7 +17,7 @@ function recogerDatos(event, navigate, onLogin, setErrorMessage) {
         password: password
     };
 
-    fetch('http://localhost:8000/api/login', {
+    fetch('https://gestionocasion.com/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

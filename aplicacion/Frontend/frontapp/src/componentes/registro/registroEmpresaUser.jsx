@@ -88,7 +88,7 @@ const MultiStepForm = () => {
 
     try {
       console.log(data)
-        const response = await fetch('http://localhost:8000/api/registroEmpresa', {
+        const response = await fetch('https://gestionocasion.com/api/registroEmpresa', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

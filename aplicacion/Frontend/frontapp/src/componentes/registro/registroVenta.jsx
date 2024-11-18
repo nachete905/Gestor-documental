@@ -103,7 +103,7 @@ const RegistroVenta = () => {
         console.log("Datos que se envían:", dataToSend);
 
         try {
-            const response = await fetch("http://localhost:8000/api/registroVenta", {
+            const response = await fetch("https://gestionocasion.com/api/registroVenta", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -132,7 +132,7 @@ const RegistroVenta = () => {
     };
 
     useEffect(() => {
-        fetch("http://localhost:8000/api/getUserData", {
+        fetch("https://gestionocasion.com/api/getUserData", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -156,7 +156,7 @@ const RegistroVenta = () => {
                     }));
 
                     // Obtener coches
-                    return fetch(`http://localhost:8000/api/coches/${idEmpresa}`)
+                    return fetch(`https://gestionocasion.com/api/coches/${idEmpresa}`)
                         .then((response) => {
                             if (!response.ok) throw new Error("Error fetching coches");
                             return response.json();
@@ -165,7 +165,7 @@ const RegistroVenta = () => {
                             setCoches(cochesData);
                             // Obtener usuarios de la empresa
                             return fetch(
-                                `http://localhost:8000/api/usuariosEmpresa/${idEmpresa}`
+                                `https://gestionocasion.com/api/usuariosEmpresa/${idEmpresa}`
                             );
                         })
                         .then((response) => {

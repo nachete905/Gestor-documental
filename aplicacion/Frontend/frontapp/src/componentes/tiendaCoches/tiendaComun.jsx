@@ -7,7 +7,7 @@ import BarraNavegacion from "../barraNavegacion/BarraNavegacion";
 import BarraUserNormal from "../barraNavegacion/barraUserNormal";
 
 const getPhotoUrl = (photoPath) => {
-    return `http://localhost:8000/${photoPath}`;
+    return `https://gestionocasion.com/${photoPath}`;
 };
 
 export default function TiendaComun() {
@@ -29,7 +29,7 @@ export default function TiendaComun() {
 
     useEffect(() => {
         setLoading(true); // Activamos loading
-        fetch('http://localhost:8000/api/tiendaOnline')
+        fetch('https://gestionocasion.com/api/tiendaOnline')
             .then(response => {
                 if (!response.ok) throw new Error('Error el obtener los coches');
                 return response.json();
@@ -45,7 +45,7 @@ export default function TiendaComun() {
     }, []);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/estados`)
+        fetch(`https://gestionocasion.com/api/estados`)
             .then(response => {
                 if (!response.ok) throw new Error('Error fetching coche states');
                 return response.json();

@@ -7,7 +7,7 @@ import BarraNavegacion from "../barraNavegacion/BarraNavegacion";
 
 
 const getPhotoUrl = (photoPath) => {
-    const url = `http://localhost:8000/${photoPath}`;
+    const url = `https://gestionocasion.com/${photoPath}`;
     return url;
 };
 
@@ -25,7 +25,7 @@ function DocumentacionPropietario(){
         if (dniGuardado) {
 
             // Hacer una solicitud POST para obtener la información usando el DNI en la URL
-            fetch(`http://localhost:8000/api/documentacionPropietario/${dniGuardado}`, {
+            fetch(`https://gestionocasion.com/api/documentacionPropietario/${dniGuardado}`, {
                 method: 'POST', // Mantener el método POST
                 headers: {
                     'Content-Type': 'application/json',

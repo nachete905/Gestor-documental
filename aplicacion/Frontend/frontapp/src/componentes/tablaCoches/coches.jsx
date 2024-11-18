@@ -27,7 +27,7 @@ export default function Coches() {
 
     // Función para obtener los coches según la empresa
     const obtenerCoches = (query = "") => {
-        fetch('http://localhost:8000/api/getUserData', {
+        fetch('https://gestionocasion.com/api/getUserData', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -43,7 +43,7 @@ export default function Coches() {
                     const idEmpresa = data.user.id_empresa;
                     if (idEmpresa) {
                         setEmpresaId(idEmpresa);
-                        let url = `http://localhost:8000/api/coches/${idEmpresa}`;
+                        let url = `https://gestionocasion.com/api/coches/${idEmpresa}`;
                         if (query) {
                             url += `/${query}`;
                         }

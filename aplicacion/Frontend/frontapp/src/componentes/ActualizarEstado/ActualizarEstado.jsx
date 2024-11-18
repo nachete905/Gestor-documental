@@ -17,7 +17,7 @@ export function recogerDatos(event) {
     };
 
     // Hacer la petición POST
-    fetch('http://localhost:8000/api/actualizarCoche', {
+    fetch('https://gestionocasion.com/api/actualizarCoche', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -59,7 +59,7 @@ export default function ActualizarEstado() {
 
     useEffect(() => {
         // Primera petición para obtener los datos del usuario
-        fetch('http://localhost:8000/api/getUserData', {
+        fetch('https://gestionocasion.com/api/getUserData', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -75,7 +75,7 @@ export default function ActualizarEstado() {
                     const idEmpresa = data.user.id_empresa;
                     if (idEmpresa) {
                         setEmpresaId(idEmpresa);
-                        return fetch(`http://localhost:8000/api/tiendaCoches/${idEmpresa}`);
+                        return fetch(`https://gestionocasion.com/api/tiendaCoches/${idEmpresa}`);
                     } else {
                         throw new Error('ID de la empresa no encontrado');
                     }
@@ -99,7 +99,7 @@ export default function ActualizarEstado() {
     useEffect(() => {
         if (empresaId) {
             // Nueva petición para obtener el estado de los coches
-            fetch(`http://localhost:8000/api/estadoCoches/${empresaId}`)
+            fetch(`https://gestionocasion.com/api/estadoCoches/${empresaId}`)
                 .then(response => {
                     if (!response.ok) throw new Error('Error fetching coche states');
                     return response.json();

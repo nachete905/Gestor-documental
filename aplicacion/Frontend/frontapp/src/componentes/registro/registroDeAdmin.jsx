@@ -28,7 +28,7 @@ export function recogerDatos(event, setErrorMessage, navigate, onLogin, id_insta
         id_empresa
     }
 
-    fetch('http://localhost:8000/api/registroAdmin', {
+    fetch('https://gestionocasion.com/api/registroAdmin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export default function RegistroDeAdmin({ onLogin }) {
     const [idEmpresa, setEmpresaId] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/getUserData', {
+        fetch('https://gestionocasion.com/api/getUserData', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -79,7 +79,7 @@ export default function RegistroDeAdmin({ onLogin }) {
                 const idEmpresa = data.user.id_empresa;
                 if (idEmpresa) {
                     setEmpresaId(idEmpresa);
-                    return fetch(`http://localhost:8000/api/instalaciones/${idEmpresa}`);
+                    return fetch(`https://gestionocasion.com/api/instalaciones/${idEmpresa}`);
                 } else {
                     throw new Error('ID de la empresa no encontrado');
                 }

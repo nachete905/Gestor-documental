@@ -23,7 +23,7 @@ export default function Coches() {
     const puntosAnimados = ".".repeat(dots);
 
     const obtenerPropietario = (query = "") => {
-        fetch('http://localhost:8000/api/getUserData', {
+        fetch('https://gestionocasion.com/api/getUserData', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -37,7 +37,7 @@ export default function Coches() {
                 let id_empresa = data.user.id_empresa;
                 if (id_empresa) {
                     setEmpresaId(id_empresa);
-                    let url = `http://localhost:8000/api/propietarios/${id_empresa}`;
+                    let url = `https://gestionocasion.com/api/propietarios/${id_empresa}`;
                     if (query) {
                         url += `/${query}`;
                     }

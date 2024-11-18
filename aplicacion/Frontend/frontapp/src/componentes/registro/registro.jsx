@@ -24,7 +24,7 @@ export function recogerDatos(event, navigate, onLogin, setErrorMessage) {
     };
 
     // Enviar los datos de registro
-    fetch('http://localhost:8000/api/registrar', {
+    fetch('https://gestionocasion.com/api/registrar', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export function recogerDatos(event, navigate, onLogin, setErrorMessage) {
     .then(data => {
         console.log("Registro exitoso:", data);
         // Ahora, inicia sesión automáticamente
-        return fetch('http://localhost:8000/api/login', {
+        return fetch('https://gestionocasion.com/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

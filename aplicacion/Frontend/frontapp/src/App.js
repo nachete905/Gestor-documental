@@ -34,9 +34,9 @@ function App() {
 
     return (
         <Router>
-        <div>
             <CookieConsent />
-            <Routes> <Route path="/" element={<Home isAuthenticated={isAuthenticated} onLogout={handleLogout} />} />
+            <Routes>
+                <Route path="/" element={<Home isAuthenticated={isAuthenticated} onLogout={handleLogout} />} />
                 <Route path="/registro" element={<Registro onLogin={handleLogin} />} />
                 <Route path="/registroDeAdmin" element={<RegistroDeAdmin />} />
                 <Route path="/login" element={<Login onLogin={handleLogin} />} />
@@ -55,7 +55,6 @@ function App() {
                 <Route path="/contacto" element={<FormularioContacto />} />
                 <Route path="/buzon" element={<Buzon />} />
             </Routes>
-        </div>
     </Router> );
 }
 
